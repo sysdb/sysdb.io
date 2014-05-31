@@ -135,6 +135,10 @@ div.main_container h2 {
 	margin: 25px 0px 15px;
 }
 
+div.main_container h3 {
+	padding: 0px 15px;
+}
+
 div.main_container p {
 	padding: 0px 15px;
 }
@@ -154,7 +158,11 @@ div.main_container pre {
 	border-left: 5px #ffff66 solid;
 	background-color: #ffffcc;
 	margin: 0px 30px;
-	padding-left: 15px;
+	padding: 0px 15px;
+}
+
+div.main_container dl {
+	padding: 0px 15px;
 }
 
 div.right_container {
