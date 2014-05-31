@@ -44,6 +44,7 @@ var configfile = flag.String("configfile", "sysdb.conf", "config file name")
 var output = flag.String("output", "/var/www/sysdb.io", "output directory")
 
 type templ struct {
+	Title    string `json:"title"`
 	Template string `json:"template"`
 	Left     string `json:"left"`
 	Right    string `json:"right"`
@@ -52,6 +53,16 @@ type templ struct {
 type config struct {
 	Defaults templ            `json:"defaults"`
 	Pages    map[string]templ `json:"pages"`
+}
+
+func (c config) title(page string) string {
+	if t, ok := c.Pages[page]; ok && t.Title != "" {
+		return t.Title
+	}
+	if c.Defaults.Title == "" {
+		log.Fatalf("Title q for page %q not found.", page)
+	}
+	return c.Defaults.Title
 }
 
 func (c config) template(page string) string {
@@ -106,7 +117,7 @@ func parseTempl(templ *template.Template, page, name, filename string) *template
 	return templ
 }
 
-func writePage(templ *template.Template, page string) {
+func writePage(templ *template.Template, page string, c *config) {
 	file := path.Join(*output, page)
 
 	if _, err := os.Stat(file); err == nil && !*force {
@@ -123,9 +134,15 @@ func writePage(templ *template.Template, page string) {
 	}
 	defer out.Close()
 
+	p := &struct {
+		Title string
+	}{
+		Title: c.title(page),
+	}
+
 	log.Printf("Writing page %q ...", file)
 	fmt.Fprintln(out, "<?xml version='1.0' encoding='utf-8'?>")
-	err = templ.Execute(out, nil)
+	err = templ.Execute(out, p)
 	if err != nil {
 		log.Fatalf("Failed to execute template for page %q: %v", file, err)
 	}
@@ -154,6 +171,6 @@ func main() {
 		parseTempl(templ, page, "left", c.left(page))
 		parseTempl(templ, page, "right", c.right(page))
 
-		writePage(templ, page)
+		writePage(templ, page, c)
 	}
 }
