@@ -149,6 +149,14 @@ div.main_container a:hover, a:focus, a:active {
 	color: #000000;
 }
 
+div.main_container pre {
+	border: 1px #ffff66 solid;
+	border-left: 5px #ffff66 solid;
+	background-color: #ffffcc;
+	margin: 0px 30px;
+	padding-left: 15px;
+}
+
 div.right_container {
 	width: 200px;
 	float: right;

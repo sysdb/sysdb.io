@@ -18,3 +18,36 @@ href="https://github.com/tokkee/sysdb">web-interface</a> or download the code
 via <a href="http://git-scm.com/">Git</a> via <a
 href="https://github.com/tokkee/sysdb.git">https://github.com/tokkee/sysdb.git</a>.
 </p>
+
+<h2>Compile the Source</h2>
+
+<p>
+After downloading the source package, you need to unpack, compile, and install
+the source. For this, you might need additional dependencies based on which
+components of SysDB you want to use. You'll find detailed information about
+this in the <a
+href="https://github.com/tokkee/sysdb/blob/master/README">README</a> file.
+Also, the '<tt>configure</tt>' script will provide a summary of required and
+auto-detected dependencies.
+</p>
+
+<p>
+Compile and install the source using the usual approach used by a lot of Open
+Source projects:
+</p>
+
+<pre>
+tar zxf sysdb-<i>VERSION</i>.tar.gz
+cd sysdb-<i>VERSION</i>
+./configure
+make all install
+</pre>
+
+<p>
+When fetching the source from Git or after changing the build system, you'll
+have to rebuild the build system:
+</p>
+
+<pre>
+./autogen.sh
+</pre>
