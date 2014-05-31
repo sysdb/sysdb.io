@@ -1,0 +1,117 @@
+<p>
+<b>&ldquo;System Datebase&rdquo; (SysDB)</b> is a <b>Open Source</b> daemon
+which aggregates system management and inventory information and stores them
+in a central database. All information is retrieved from other hardware or
+software systems and may be queried through a generic interface.
+</p>
+
+<div class="front_feature">
+<h2>SysDB 0.1.0 Release</h2>
+<p><b>Date: tba</b></p>
+<p>This is the first public release of SysDB. It it considered to be a
+technology preview meant to be used for early testing and evaluation. Any
+feedback is greatly appreciated. Please send comments to <a
+href="mailto:tokkee@sysdb.io">Sebastian 'tokkee' Harl</a> or open an <a
+href="https://github.com/tokkee/sysdb/issues">issue at Github</a>.</p>
+
+<p>&nbsp;<br />
+<span class="blue">&raquo;</span>
+<a href="/">Release Announcement</a><br />
+<span class="blue">&raquo;</span>
+<a href="/download">Download</a>
+</p>
+</div>
+
+<h2>How SysDB Works</h2>
+
+<p>
+"System DataBase" (SysDB) is a <b>multi-backend</b> system management and
+inventory collection service. It stores system and inventory information about
+hardware and software systems. This information is (continuously) collected
+from various <b>configurable backends</b> (inventory services, monitoring
+services, etc.) and stored in a <b>graph-like hierarchy</b> of generic
+objects. The store may be queried through a generic interface independent of
+the active backends. Object names are canonicalized before they are added to
+the store to ensure a consistent view of your infrastructure.
+</p>
+
+<p>
+The central object type is a <b>host</b>, which generally represents a
+physical or virtual machine or any other type of physical resource. Hosts, in
+turn, may reference a list of <b>services</b> which represent any kind of
+logical resource like a software system. Both, hosts and services, may
+reference a list of <b>attributes</b> which represent further information
+about the respective host or service object. For example, attributes may
+specify static information like a host's architecture or the software version
+or reference performance data like the current memory utilization or much
+more.
+</p>
+
+<h2>Reasons to Choose SysDB</h2>
+
+<p>
+SysDB aggregates information from multiple system management and inventory
+services, thus allowing to use the benefits of each while still maintaining a
+complete overview of all information. This enables you to correlate or
+annotate information. The following example use-cases provide an idea of how
+you can benefit from that:
+</p>
+
+<ul>
+<li>filter or select monitoring and performance data by their attributes
+(e.g., facter fact values)</li>
+<li>display all important system information in one location (central
+dashboard)</li>
+<li>build powerful, dynamic monitoring rules and business processes</li>
+<li>extend your CMDB, for example by annotating static information with
+dynamic and/or current data</li>
+</ul>
+
+<p>See <a href="/features">here</a> for a full list of features.</p>
+
+<h2>Installing SysDB</h2>
+
+<p>
+SysDB is distributed as source code. After <a href="/download">downloading</a>
+the latest release and unpacking the source archive, you will find more
+detailed instructions in the included <a
+href="https://github.com/tokkee/sysdb/blob/master/README">README</a> file.
+</p>
+
+<h2>SysDB Development</h2>
+
+<p>
+SysDB was initiated and is currently maintained by <a
+href="http://tokkee.org">Sebastian 'tokkee' Harl</a>. It is <a
+href="http://opensource.org/osd">Free/Libre Open Source Software</a> released
+under the <a href="http://opensource.org/licenses/BSD-2-Clause">simplified BSD
+license</a>. You are free to use, modify, and redistribute the code or
+integrate it into your codebase under the terms of that license. The source
+code is hosted on Github and freely available to anyone for analysis and
+reuse. If you share any patches or improvements, please make sure to send them
+back for integration into the SysDB codebase for the benefit of all users.
+</p>
+
+<p>
+	<iframe src="/github-btn.html?user=tokkee&amp;repo=sysdb&amp;type=fork&amp;count=true"
+		frameborder="0" scrolling="no" width="90px" height="20px"></iframe>
+	<iframe src="/github-btn.html?user=tokkee&amp;repo=sysdb&amp;type=watch&amp;count=true"
+		frameborder="0" scrolling="no" width="90px" height="20px"></iframe>
+</p>
+
+<p>
+The source code is continuously tested by running a set of unit and
+integration tests. You may find the current build and test status and code
+coverage statistics at <a href="https://travis-ci.org/tokkee/sysdb">Travis
+CI</a> and <a href="https://coveralls.io/r/tokkee/sysdb">Coveralls</a>:
+</p>
+
+<p>
+<a href="https://travis-ci.org/tokkee/sysdb?branch=master"><img
+	src="https://travis-ci.org/tokkee/sysdb.png?branch=master"
+	border="0" alt="Build/Test Status" /></a>
+&nbsp;&nbsp;&nbsp;
+<a href="https://coveralls.io/r/tokkee/sysdb?branch=master"><img
+	src="https://coveralls.io/repos/tokkee/sysdb/badge.png?branch=master"
+	border="0" alt="Coverage Status" /></a>
+</p>

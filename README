@@ -1,0 +1,37 @@
+                    sysdb.io -- the SysDB project website
+                   =======================================
+
+  This is the SysDB (System DataBase) website and related tools. Most of the
+  content is created dynamically from simple templates using the sysdb.io
+  tool.
+
+Install the sysdb.io website
+----------------------------
+
+  The SysDB website (currently available at http://sysdb.io/) currently is a
+  set of static HTML pages. They are created from some simple templates using
+  Go's html/template package (http://golang.org/pkg/html/template/). For this
+  purpose a small tool, sysdb.io, is used.
+
+  Compile sysdb.io:
+
+    go build src/sysdb.io.go
+
+  The tool does not need any third-party Go packages, so no special setup is
+  required in order to compile it.
+
+  Install everything into some directory which is served by your webserver
+  (various links and embedded resources expect that the site is accessible
+  from the webserver's root directory, though).
+
+    ./sysdb.io --output /some/directory
+    cp -i -r static/* /some/directory
+
+  This will not overwrite any existing files. Use './sysdb.io --force' and
+  'cp -f' for that purpose.
+
+Author
+------
+
+  Sebastian “tokkee” Harl <sh@tokkee.org>
+
