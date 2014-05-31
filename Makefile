@@ -13,3 +13,6 @@ man-latest:
 	make -C src/sysdb/doc/ ADOCFLAGS="--no-header-footer"
 	mkdir -p templates/manpages/latest
 	cp src/sysdb/doc/*.html templates/manpages/latest
+
+man-install: man-latest
+	./sysdb.io --configfile manpages-latest.conf --force --output /var/www/sysdb.io
