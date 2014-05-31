@@ -1,0 +1,80 @@
+<div class="sect1">
+<h2 id="_synopsis">SYNOPSIS</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre><tt>&lt;LoadBackend "collectd::unixsock"&gt;
+    Interval 60
+&lt;/LoadBackend&gt;</tt></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>&lt;Backend "collectd::unixsock"&gt;
+    &lt;Instance "collector"&gt;
+        Socket "/var/run/collectd-unixsock"
+    &lt;/Instance&gt;
+&lt;/Backend&gt;</tt></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description">DESCRIPTION</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>collectd::unixsock</strong> is a backend module which queries the system statistics
+collection daemon <strong>collectd</strong> using its <strong>unixsock</strong> interface. It connects to
+the daemon and periodically queries all hosts and metric names. The latter are
+then stored as services of the respective host.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration">CONFIGURATION</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>collectd::unixsock</strong> accepts the following configuration options:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>Instance</strong> <em>&lt;name&gt;</em>
+</dt>
+<dd>
+<p>
+        An instance block specifies a connection to collectd. The specified
+        <em>&lt;name&gt;</em> is used to identify the connection internally but otherwise has
+        no special meaning.
+       <br />
+        An instance block accepts the following configuration options:
+</p>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>Socket</strong> <em>&lt;path&gt;</em>
+</dt>
+<dd>
+<p>
+                The path name of the UNIX domain socket provided by collectd&#8217;s
+                <strong>unixsock</strong> plugin.
+</p>
+</dd>
+</dl></div>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">SEE ALSO</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><a href="sysdbd.1.html">sysdbd(1)</a>, <a href="sysdbd.conf.5.html">sysdbd.conf(5)</a></p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_author">AUTHOR</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>SysDB was written by Sebastian "tokkee" Harl &lt;<a href="mailto:sh@tokkee.org">sh@tokkee.org</a>&gt;.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_copyright">COPYRIGHT</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Copyright &#169; 2012-2014 Sebastian "tokkee" Harl &lt;<a href="mailto:sh@tokkee.org">sh@tokkee.org</a>&gt;</p></div>
+<div class="paragraph"><p>This is free software under the terms of the BSD license, see the source for
+copying conditions. There is NO WARRANTY; not even for MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.</p></div>
+</div>
+</div>

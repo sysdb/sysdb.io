@@ -1,0 +1,80 @@
+<div class="sect1">
+<h2 id="_synopsis">SYNOPSIS</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre><tt>&lt;LoadBackend "mk-livestatus"&gt;
+    Interval 300
+&lt;/LoadBackend&gt;</tt></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>&lt;Backend "mk-livestatus"&gt;
+    &lt;Instance "collector"&gt;
+        Socket "/var/lib/nagios4/rw/live"
+    &lt;/Instance&gt;
+&lt;/Backend&gt;</tt></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description">DESCRIPTION</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>mk-livestatus</strong> is a backend module which queries monitoring systems
+supporting the Check_MK livestatus interface (e.g. Icinga, Naemon, Nagios,
+Shinken). It connects to the monitoring daemon and periodically queries all
+hosts and services.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration">CONFIGURATION</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>mk-livestatus</strong> accepts the following configuration options:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>Instance</strong> <em>&lt;name&gt;</em>
+</dt>
+<dd>
+<p>
+        An instance block specifies a connection to the monitoring system. The
+        specified <em>&lt;name&gt;</em> is used to identify the connection internally but
+        otherwise has no special meaning.
+       <br />
+        An instance block accepts the following configuration options:
+</p>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>Socket</strong> <em>&lt;path&gt;</em>
+</dt>
+<dd>
+<p>
+                The path name of the UNIX domain socket provided by the livestatus
+                module.
+</p>
+</dd>
+</dl></div>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">SEE ALSO</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><a href="sysdbd.1.html">sysdbd(1)</a>, <a href="sysdbd.conf.5.html">sysdbd.conf(5)</a></p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_author">AUTHOR</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>SysDB was written by Sebastian "tokkee" Harl &lt;<a href="mailto:sh@tokkee.org">sh@tokkee.org</a>&gt;.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_copyright">COPYRIGHT</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Copyright &#169; 2012-2014 Sebastian "tokkee" Harl &lt;<a href="mailto:sh@tokkee.org">sh@tokkee.org</a>&gt;</p></div>
+<div class="paragraph"><p>This is free software under the terms of the BSD license, see the source for
+copying conditions. There is NO WARRANTY; not even for MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.</p></div>
+</div>
+</div>

@@ -1,0 +1,235 @@
+<div class="sect1">
+<h2 id="_synopsis">SYNOPSIS</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre><tt>Interval 300</tt></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>Listen "unix:/var/run/sysdbd.sock"</tt></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>LoadPlugin "syslog"</tt></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>LoadBackend "collectd::unixsock"
+LoadBackend "mk-livestatus"</tt></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>&lt;LoadBackend "puppet::store-configs"&gt;
+    Interval 1800
+&lt;/LoadBackend&gt;</tt></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>&lt;Backend "collectd::unixsock"&gt;
+    &lt;Instance "central-collector"&gt;
+        Socket "/var/run/collectd-unixsock"
+    &lt;/Instance&gt;
+&lt;/Backend&gt;</tt></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description">DESCRIPTION</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The <strong>sysdbd.conf</strong> file controls the behavior of the system management and
+inventory collection daemon (<strong>sysdbd</strong>). As the daemon itself does not provide
+any real (user-facing) functionality, the most important part of the
+configuration is loading and configuring plugins.</p></div>
+<div class="paragraph"><p>The syntax of this configuration file is similar to that of the Apache
+webserver. It is made up of <em>options</em> and <em>sections</em>. Each option contains a
+<em>key</em> and one or more <em>values</em> separated by spaces and terminated by a newline
+character. Sections are enclosed in a start- and end-tag, each on a line of
+their own. These tags are enclosed in angle brackets and also contain a key
+and value. Section end-tags only contain the key of the start-tag prepended by
+a forward-slash ("/"). Empty lines are ignored as well as any unquoted hash
+symbol ("#") including anything following up to the following newline. Keys
+are unquoted strings consisting only of alphanumeric characters and the
+underscore character ("_"). Values may either be unquoted strings, quoted
+strings enclosed in double quotes, numbers or boolean values (<strong>true</strong> or
+<strong>false</strong>). In order to include a double-quote character in a quoted string,
+escape it using a backslash character ("\"). Floating point numbers use a dot
+(".") as decimal separator.</p></div>
+<div class="paragraph"><p>Lines may be wrapped by using a backslash character ("\") as the last
+character before the newline. This allows long lines to be split into multiple
+lines. Quoted strings may be wrapped as well. However, those are treated
+special in that whitespace at the beginning of the following lines will be
+ignored, which allows for nicely indenting the wrapped lines.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_global_settings">GLOBAL SETTINGS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>sysdbd</strong> accepts the following global options:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>Interval</strong> <em>&lt;seconds&gt;</em>
+</dt>
+<dd>
+<p>
+        Sets the interval at which to query backends by default. The interval is
+        specified in seconds and might be a floating-point value. This option will
+        be used by any "active" backend, that is, those that actively query some
+        external system rather than receiving some stream of events.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Listen</strong> <em>&lt;socket&gt;</em>
+</dt>
+<dd>
+<p>
+        Sets the address on which sysdbd is to listen for client connections. It
+        supports UNIX domain sockets. The path name needs to be prefixed by
+        <em>unix:</em>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>LoadBackend</strong> <em>&lt;name&gt;</em>
+</dt>
+<dd>
+<p>
+        Loads the backend named <em>&lt;name&gt;</em>. Backends are special plugins taking care
+        of collecting values from external systems. This may optionally be a
+        section containing any of the following options:
+</p>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>Interval</strong> <em>&lt;seconds&gt;</em>
+</dt>
+<dd>
+<p>
+                Overwrite the global interval setting by setting a custom interval to
+                be used for this backend. See the global <strong>Interval</strong> option for more
+                details.
+</p>
+</dd>
+</dl></div>
+</dd>
+<dt class="hdlist1">
+<strong>LoadPlugin</strong> <em>&lt;name&gt;</em>
+</dt>
+<dd>
+<p>
+        Loads the plugin named <em>&lt;name&gt;</em>. Plugins provide additional functionality
+        for sysdbd.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>PluginDir</strong> <em>&lt;directory&gt;</em>
+</dt>
+<dd>
+<p>
+        Sets the base directory for plugins to <em>&lt;directory&gt;</em>. When loading a
+        plugin, it is expected to be found below this directory. This option
+        affects all following <strong>LoadBackend</strong> or <strong>LoadPlugin</strong> statements up to the
+        following <strong>PluginDir</strong> option.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_plugins">PLUGINS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Some plugins support additional configuration options. Each of these are
+enclosed in a <strong>Plugin</strong> or <strong>Backend</strong> section. The following plugins are shipped
+with SysDB. See <strong>sysdbd</strong>-<em>&lt;name&gt;</em>(5) manpages for more details.</p></div>
+<div class="sect2">
+<h3 id="_backends">Backends:</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>collectd::unixsock</strong>
+</dt>
+<dd>
+<p>
+This backend module accesses the system statistics collection daemon
+<strong>collectd</strong> through its UNIX socket interface. It periodically queries all host
+and service information.
+</p>
+<div class="paragraph"><p>See also: <a href="http://collectd.org">http://collectd.org</a></p></div>
+</dd>
+<dt class="hdlist1">
+<strong>mk-livestatus</strong>
+</dt>
+<dd>
+<p>
+This backend modules accesses monitoring systems supporting the <strong>livestatus</strong>
+addon (e.g., <strong>Nagios</strong>, <strong>Icinga</strong>, and <strong>Shinken</strong>). It periodically queries all
+host and service information.
+</p>
+<div class="paragraph"><p>See also: <a href="http://mathias-kettner.de/checkmk_livestatus.html">http://mathias-kettner.de/checkmk_livestatus.html</a>,
+<a href="http://www.nagios.org/">http://www.nagios.org/</a>, <a href="http://icinga.org/">http://icinga.org/</a>, <a href="http://www.shinken-monitoring.org/">http://www.shinken-monitoring.org/</a></p></div>
+</dd>
+<dt class="hdlist1">
+<strong>puppet::store-configs</strong>
+</dt>
+<dd>
+<p>
+This backend module accesses the configuration management system <strong>Puppet</strong>
+through its <strong>store configs</strong> database. It periodically queries all host and
+facter facts information storing the latter as host attributes.
+</p>
+<div class="paragraph"><p>See also: <a href="http://puppetlabs.com/puppet">http://puppetlabs.com/puppet</a>,
+<a href="http://puppetlabs.com/puppet/related-projects/facter/">http://puppetlabs.com/puppet/related-projects/facter/</a></p></div>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="_plugins_2">Plugins:</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>cname::dns</strong>
+</dt>
+<dd>
+<p>
+Canonicalize hostnames based on a reverse DNS query.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>syslog</strong>
+</dt>
+<dd>
+<p>
+This logging module sends log messages of the daemon and plugins to the local
+system&#8217;s syslog service.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">SEE ALSO</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><a href="sysdbd.1.html">sysdbd(1)</a>, <a href="sysdb.7.html">sysdb(7)</a></p></div>
+<div class="sect2">
+<h3 id="_backend_documentation">Backend documentation:</h3>
+<div class="paragraph"><p><a href="sysdbd-collectd-unixsock.5.html">sysdbd-collectd-unixsock(5)</a>, <a href="sysdbd-mk-livestatus.5.html">sysdbd-mk-livestatus(5)</a>,
+<a href="sysdbd-puppet-store-configs.5.html">sysdbd-puppet-store-configs(5)</a></p></div>
+</div>
+<div class="sect2">
+<h3 id="_plugin_documentation">Plugin documentation:</h3>
+<div class="paragraph"><p><a href="sysdbd-cname-dns.5.html">sysdbd-cname-dns(5)</a>, <a href="sysdbd-syslog.5.html">sysdbd-syslog(5)</a></p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_author">AUTHOR</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>SysDB was written by Sebastian "tokkee" Harl &lt;<a href="mailto:sh@tokkee.org">sh@tokkee.org</a>&gt;.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_copyright">COPYRIGHT</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Copyright &#169; 2012-2014 Sebastian "tokkee" Harl &lt;<a href="mailto:sh@tokkee.org">sh@tokkee.org</a>&gt;</p></div>
+<div class="paragraph"><p>This is free software under the terms of the BSD license, see the source for
+copying conditions. There is NO WARRANTY; not even for MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.</p></div>
+</div>
+</div>
