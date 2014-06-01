@@ -15,6 +15,9 @@
 
 	<link rel="stylesheet" href="/style/main.css" type="text/css" />
 	<link rel="icon" href="/images/favicon.png" type="images/png" />
+{{range .JS}}
+	<script type="text/javascript" src="/js/{{.}}"></script>
+{{end}}
 </head>
 
 <body>
