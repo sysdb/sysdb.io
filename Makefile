@@ -10,7 +10,7 @@ install: sysdb.io
 man-latest:
 	# TODO: bootstrap sysdb build system if needed
 	rm -f src/sysdb/doc/*.html
-	make -C src/sysdb/doc/ ADOCFLAGS="--no-header-footer"
+	make -C src/sysdb/doc/ ADOCFLAGS="-f $(CURDIR)/asciidoc.conf"
 	mkdir -p templates/manpages/latest
 	cp src/sysdb/doc/*.html templates/manpages/latest
 
