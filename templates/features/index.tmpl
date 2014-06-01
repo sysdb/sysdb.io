@@ -4,25 +4,27 @@ The following list describes the most important features of SysDB:
 </p>
 
 <ul>
-<li><b>Hostname canonicalization:</b> Before storing host-names in the
+<li><p><b>Hostname canonicalization:</b> Before storing host-names in the
 internal data store, they may be canonicalized. This way, different names
-provided by different backends may be mapped to the same object in SysDB.</li>
-<li><b>Simple, yet flexible object-types:</b> Each object (host, service,
+provided by different backends may be mapped to the same object in
+SysDB.</p></li>
+<li><p><b>Simple, yet flexible object-types:</b> Each object (host, service,
 attribute) stored in SysDB is automatically attributed with last-update and
 interval information allowing for detecting out-of-date entries. Host and
 service attributes support different types: integer, decimal, string,
-date-time, binary.</li>
-<li><b>Simple query language:</b> (Not to be confused with SQL, the Structured
-Query Language used by relational databases.) Objects in SysDB may be queried
-and retrieved using a simple, domain-specific query language.</li>
-<li><b>Multi-threaded, event-based architecture:</b> Client connections are
+date-time, binary.</p></li>
+<li><p><b>Simple query language:</b> (Not to be confused with SQL, the
+Structured Query Language used by relational databases.) Objects in SysDB may
+be queried and retrieved using a simple, domain-specific query
+language.</p></li>
+<li><p><b>Multi-threaded, event-based architecture:</b> Client connections are
 handled using an event-driven design allowing for handling many connections
 with low resource footprint. The SysDB core is multi-threaded allowing for
-good use of processing resources.</li>
-<li><b>Modular, configurable architecture:</b> Most functionality in SysDB is
-provided by plugins. All support for data backends is implemented that way and
-may dynamically be loaded and (re)configured at runtime. The core
-functionality may be extended using various hooks.</li>
-<li><b>Custom extensions:</b> Through its plugin architecture, SysDB may
-easily be extended for any special use-case.</li>
+good use of processing resources.</p></li>
+<li><p><b>Modular, configurable architecture:</b> Most functionality in SysDB
+is provided by plugins. All support for data backends is implemented that way
+and may dynamically be loaded and (re)configured at runtime. The core
+functionality may be extended using various hooks.</p></li>
+<li><p><b>Custom extensions:</b> Through its plugin architecture, SysDB may
+easily be extended for any special use-case.</p></li>
 </ul>
