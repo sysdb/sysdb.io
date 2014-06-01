@@ -1,9 +1,16 @@
-all: sysdb.io
+.SUFFIXES: .txt .html
+
+REL_NOTES = \
+		adoc/ReleaseNotes/v0.1.0.html
+
+all: sysdb.io $(REL_NOTES)
 
 sysdb.io: src/sysdb.io.go
 	go build $<
 
-install: sysdb.io
+adoc/ReleaseNotes/v0.1.0.html: adoc/ReleaseNotes/v0.1.0.txt
+
+install: sysdb.io $(REL_NOTES)
 	./sysdb.io --force --output /var/www/sysdb.io
 	cp -r static/* /var/www/sysdb.io
 
@@ -16,3 +23,7 @@ man-head:
 
 man-install: man-head
 	./sysdb.io --configfile manpages-head.conf --force --output /var/www/sysdb.io
+
+.txt.html:
+	asciidoc -b xhtml11 -d article --no-header-footer $<
+
