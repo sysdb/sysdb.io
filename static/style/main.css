@@ -250,6 +250,10 @@ div.footer a {
 	margin: 0px 5px;
 }
 
+.small {
+	font-size: .8em;
+}
+
 .blue {
 	color: #1e466d;
 }
