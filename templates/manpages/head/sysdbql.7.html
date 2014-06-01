@@ -7,12 +7,12 @@
 <h2 id="_synopsis">SYNOPSIS</h2>
 <div class="sectionbody">
 <div class="literalblock">
-<div class="content">
-<pre><tt>LIST;</tt></pre>
+<div class="content monospaced">
+<pre>LIST;</pre>
 </div></div>
 <div class="literalblock">
-<div class="content">
-<pre><tt>QUERY hosts WHERE attribute.architecture = 'amd64';</tt></pre>
+<div class="content monospaced">
+<pre>QUERY hosts WHERE attribute.architecture = 'amd64';</pre>
 </div></div>
 </div>
 </div>
@@ -209,8 +209,8 @@ used in all replies from the server. <a href="http://www.ietf.org/rfc/rfc4627.tx
 <div class="paragraph"><p>The following examples illustrate the use of the commands and what their
 replies look like. The replies are pretty-printed to more easily follow them.</p></div>
 <div class="literalblock">
-<div class="content">
-<pre><tt>LIST;
+<div class="content monospaced">
+<pre>LIST;
 {"hosts":[{
     "name": "host1.example.com",
     "last_update": "2001-02-03 04:05:06 +0700",
@@ -219,11 +219,11 @@ replies look like. The replies are pretty-printed to more easily follow them.</p
     "name": "host2.example.com",
     "last_update": "2001-02-03 04:05:06 +0700",
     "update_interval": "5m4s"
-  }]}</tt></pre>
+  }]}</pre>
 </div></div>
 <div class="literalblock">
-<div class="content">
-<pre><tt>FETCH 'host1.example.com';
+<div class="content monospaced">
+<pre>FETCH 'host1.example.com';
 {
     "name": "host1.example.com",
     "last_update": "2001-02-03 04:05:06 +0700",
@@ -242,11 +242,11 @@ replies look like. The replies are pretty-printed to more easily follow them.</p
         "update_interval": "5m4s"
       },{
         ...
-      }]}</tt></pre>
+      }]}</pre>
 </div></div>
 <div class="literalblock">
-<div class="content">
-<pre><tt>LOOKUP hosts WHERE attribute.architecture = 'amd64';
+<div class="content monospaced">
+<pre>LOOKUP hosts WHERE attribute.architecture = 'amd64';
 [{
     "name": "host1.example.com",
     "last_update": "2001-02-03 04:05:06 +0700",
@@ -267,7 +267,7 @@ replies look like. The replies are pretty-printed to more easily follow them.</p
         ...
   }]},{
     ...
-  }]</tt></pre>
+  }]</pre>
 </div></div>
 </div>
 </div>

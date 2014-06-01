@@ -9,6 +9,19 @@ a, a:hover, a:focus, a:active {
 	background-color: transparent;
 }
 
+iframe {
+	border: none;
+	overflow: none;
+}
+
+img {
+	border: none;
+}
+
+span.tt {
+	font-family: monospace;
+}
+
 div.main {
 	background-color: #ffffff;
 	min-width: 750px;
@@ -60,6 +73,8 @@ div.header div.title p {
 }
 
 div.menu {
+	text-align: center;
+
 	margin: 10px 0px;
 	padding: 3px 30px;
 	border-top: 1px solid #3072b3;

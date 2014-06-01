@@ -7,18 +7,18 @@
 <h2 id="_synopsis">SYNOPSIS</h2>
 <div class="sectionbody">
 <div class="literalblock">
-<div class="content">
-<pre><tt>&lt;LoadBackend "collectd::unixsock"&gt;
+<div class="content monospaced">
+<pre>&lt;LoadBackend "collectd::unixsock"&gt;
     Interval 60
-&lt;/LoadBackend&gt;</tt></pre>
+&lt;/LoadBackend&gt;</pre>
 </div></div>
 <div class="literalblock">
-<div class="content">
-<pre><tt>&lt;Backend "collectd::unixsock"&gt;
+<div class="content monospaced">
+<pre>&lt;Backend "collectd::unixsock"&gt;
     &lt;Instance "collector"&gt;
         Socket "/var/run/collectd-unixsock"
     &lt;/Instance&gt;
-&lt;/Backend&gt;</tt></pre>
+&lt;/Backend&gt;</pre>
 </div></div>
 </div>
 </div>
@@ -44,7 +44,7 @@ then stored as services of the respective host.</p></div>
         An instance block specifies a connection to collectd. The specified
         <em>&lt;name&gt;</em> is used to identify the connection internally but otherwise has
         no special meaning.
-       <br />
+       <br>
         An instance block accepts the following configuration options:
 </p>
 <div class="dlist"><dl>

@@ -7,18 +7,18 @@
 <h2 id="_synopsis">SYNOPSIS</h2>
 <div class="sectionbody">
 <div class="literalblock">
-<div class="content">
-<pre><tt>&lt;LoadBackend "mk-livestatus"&gt;
+<div class="content monospaced">
+<pre>&lt;LoadBackend "mk-livestatus"&gt;
     Interval 300
-&lt;/LoadBackend&gt;</tt></pre>
+&lt;/LoadBackend&gt;</pre>
 </div></div>
 <div class="literalblock">
-<div class="content">
-<pre><tt>&lt;Backend "mk-livestatus"&gt;
+<div class="content monospaced">
+<pre>&lt;Backend "mk-livestatus"&gt;
     &lt;Instance "collector"&gt;
         Socket "/var/lib/nagios4/rw/live"
     &lt;/Instance&gt;
-&lt;/Backend&gt;</tt></pre>
+&lt;/Backend&gt;</pre>
 </div></div>
 </div>
 </div>
@@ -44,7 +44,7 @@ hosts and services.</p></div>
         An instance block specifies a connection to the monitoring system. The
         specified <em>&lt;name&gt;</em> is used to identify the connection internally but
         otherwise has no special meaning.
-       <br />
+       <br>
         An instance block accepts the following configuration options:
 </p>
 <div class="dlist"><dl>

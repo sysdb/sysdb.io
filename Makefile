@@ -6,6 +6,8 @@ NEWS = \
 
 all: sysdb.io $(NEWS)
 
+all-install: install man-install
+
 sysdb.io: src/sysdb.io.go
 	go build $<
 
@@ -27,5 +29,5 @@ man-install: man-head
 	./sysdb.io --configfile manpages-head.conf --force --output /var/www/sysdb.io
 
 .txt.html:
-	asciidoc -b xhtml11 -d article --no-header-footer $<
+	asciidoc -b html5 -d article --no-header-footer $<
 

@@ -31,7 +31,6 @@ package main
 import (
 	"encoding/json"
 	"flag"
-	"fmt"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -141,7 +140,6 @@ func writePage(templ *template.Template, page string, c *config) {
 	}
 
 	log.Printf("Writing page %q ...", file)
-	fmt.Fprintln(out, "<?xml version='1.0' encoding='utf-8'?>")
 	err = templ.Execute(out, p)
 	if err != nil {
 		log.Fatalf("Failed to execute template for page %q: %v", file, err)

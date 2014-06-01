@@ -7,35 +7,35 @@
 <h2 id="_synopsis">SYNOPSIS</h2>
 <div class="sectionbody">
 <div class="literalblock">
-<div class="content">
-<pre><tt>Interval 300</tt></pre>
+<div class="content monospaced">
+<pre>Interval 300</pre>
 </div></div>
 <div class="literalblock">
-<div class="content">
-<pre><tt>Listen "unix:/var/run/sysdbd.sock"</tt></pre>
+<div class="content monospaced">
+<pre>Listen "unix:/var/run/sysdbd.sock"</pre>
 </div></div>
 <div class="literalblock">
-<div class="content">
-<pre><tt>LoadPlugin "syslog"</tt></pre>
+<div class="content monospaced">
+<pre>LoadPlugin "syslog"</pre>
 </div></div>
 <div class="literalblock">
-<div class="content">
-<pre><tt>LoadBackend "collectd::unixsock"
-LoadBackend "mk-livestatus"</tt></pre>
+<div class="content monospaced">
+<pre>LoadBackend "collectd::unixsock"
+LoadBackend "mk-livestatus"</pre>
 </div></div>
 <div class="literalblock">
-<div class="content">
-<pre><tt>&lt;LoadBackend "puppet::store-configs"&gt;
+<div class="content monospaced">
+<pre>&lt;LoadBackend "puppet::store-configs"&gt;
     Interval 1800
-&lt;/LoadBackend&gt;</tt></pre>
+&lt;/LoadBackend&gt;</pre>
 </div></div>
 <div class="literalblock">
-<div class="content">
-<pre><tt>&lt;Backend "collectd::unixsock"&gt;
+<div class="content monospaced">
+<pre>&lt;Backend "collectd::unixsock"&gt;
     &lt;Instance "central-collector"&gt;
         Socket "/var/run/collectd-unixsock"
     &lt;/Instance&gt;
-&lt;/Backend&gt;</tt></pre>
+&lt;/Backend&gt;</pre>
 </div></div>
 </div>
 </div>
