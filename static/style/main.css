@@ -198,6 +198,10 @@ div.right_container a, a:hover, a:focus, a:active {
 	background-color: transparent;
 }
 
+div.social-buttons {
+	padding: 0px 0px 0px 20px;
+}
+
 div.front_feature {
 	background-color: #f0f0f0;
 	padding: 13px 18px;
