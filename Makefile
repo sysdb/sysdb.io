@@ -1,13 +1,15 @@
 .SUFFIXES: .txt .html
 
 NEWS = \
+		adoc/news.html \
 		adoc/news/release-0.1.0.html
 
-all: sysdb.io $(REL_NOTES)
+all: sysdb.io $(NEWS)
 
 sysdb.io: src/sysdb.io.go
 	go build $<
 
+adoc/news.html: adoc/news.txt
 adoc/news/release-0.1.0.html: adoc/news/release-0.1.0.txt
 
 install: sysdb.io $(NEWS)
