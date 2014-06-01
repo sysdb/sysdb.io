@@ -1,16 +1,16 @@
 .SUFFIXES: .txt .html
 
-REL_NOTES = \
-		adoc/ReleaseNotes/v0.1.0.html
+NEWS = \
+		adoc/news/release-0.1.0.html
 
 all: sysdb.io $(REL_NOTES)
 
 sysdb.io: src/sysdb.io.go
 	go build $<
 
-adoc/ReleaseNotes/v0.1.0.html: adoc/ReleaseNotes/v0.1.0.txt
+adoc/news/release-0.1.0.html: adoc/news/release-0.1.0.txt
 
-install: sysdb.io $(REL_NOTES)
+install: sysdb.io $(NEWS)
 	./sysdb.io --force --output /var/www/sysdb.io
 	cp -r static/* /var/www/sysdb.io
 

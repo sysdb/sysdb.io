@@ -1,5 +1,5 @@
-Version 0.1.0, Release Date: tbd
---------------------------------
+tba: Version 0.1.0
+------------------
 
 This is the initial release of SysDB. It provides the following core features:
 
