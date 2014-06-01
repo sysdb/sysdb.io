@@ -26,7 +26,7 @@ div.main {
 	background-color: #ffffff;
 	min-width: 750px;
 	max-width: 1100px;
-	margin: 30px auto;
+	margin: 30px auto 0px;
 	padding: 10px 0px 10px;
 	border: 2px solid #3072b3;
 	-moz-box-shadow: 2px 2px 2px #8fa1b3;
@@ -233,6 +233,11 @@ div.front_feature a, a:hover, a:focus, a:active {
 
 div.front_feature a:hover, a:focus, a:active {
 	color: #000000;
+}
+
+div.contact {
+	font-size: .8em;
+	text-align: center;
 }
 
 div.footer {
