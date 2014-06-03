@@ -198,6 +198,42 @@ div.right_container a, a:hover, a:focus, a:active {
 	background-color: transparent;
 }
 
+div.right_container a.github {
+	background-image: url(/images/github.png);
+	background-repeat: no-repeat;
+	height: 30px;
+	width: 30px;
+	display: inline-block;
+	margin: 0px 20px 0px 0px;
+}
+
+div.right_container a.github:hover, a.github:focus, a.github:active {
+	background-image: url(/images/github-black.png);
+	background-repeat: no-repeat;
+	height: 30px;
+	width: 30px;
+	display: inline-block;
+	margin: 0px 20px 0px 0px;
+}
+
+div.right_container a.gplus {
+	background-image: url(/images/gplus.png);
+	background-repeat: no-repeat;
+	height: 30px;
+	width: 30px;
+	display: inline-block;
+	margin: 0px 20px 0px 0px;
+}
+
+div.right_container a.gplus:hover, a.gplus:focus, a.gplus:active {
+	background-image: url(/images/gplus-red.png);
+	background-repeat: no-repeat;
+	height: 30px;
+	width: 30px;
+	display: inline-block;
+	margin: 0px 20px 0px 0px;
+}
+
 div.social-buttons {
 	padding: 0px;
 }
