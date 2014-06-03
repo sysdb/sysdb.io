@@ -199,7 +199,11 @@ div.right_container a, a:hover, a:focus, a:active {
 }
 
 div.social-buttons {
-	padding: 0px 0px 0px 20px;
+	padding: 0px;
+}
+
+div.social-buttons div.social-button {
+	margin: 10px 0px;
 }
 
 div.front_feature {

@@ -11,7 +11,7 @@ all-install: install man-install
 sysdb.io: src/sysdb.io.go
 	go build $<
 
-adoc/news.html: adoc/news.txt
+adoc/news.html: adoc/news.txt adoc/news/*.txt
 adoc/news/release-0.1.0.html: adoc/news/release-0.1.0.txt
 
 install: sysdb.io $(NEWS)
