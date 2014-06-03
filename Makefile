@@ -16,7 +16,7 @@ adoc/news/release-0.1.0.html: adoc/news/release-0.1.0.txt
 
 install: sysdb.io $(NEWS)
 	./sysdb.io --force --output /var/www/sysdb.io
-	cp -r static/* /var/www/sysdb.io
+	rsync -vax static/ /var/www/sysdb.io
 
 man-head:
 	# TODO: bootstrap sysdb build system if needed
