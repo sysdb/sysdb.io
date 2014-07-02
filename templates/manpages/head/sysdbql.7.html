@@ -155,6 +155,13 @@ are supported by SysDB:</p></div>
 </p>
 </dd>
 </dl></div>
+<div class="paragraph"><p><em>&lt;value&gt;</em> may either be a string (when matching by object names) or match the
+type of the attribute&#8217;s value (when matching attribute values). Attribute
+values may either be a string, integer, or decimal number (booleans and binary
+data are not supported by the frontend yet).</p></div>
+<div class="paragraph"><p>When comparing an attribute&#8217;s value using a regular expression matcher, the
+value will be cast to a string before doing so. No other casts are supported
+at this time.</p></div>
 <div class="paragraph"><p>The following operators may be used to match field values:</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
@@ -190,6 +197,18 @@ are supported by SysDB:</p></div>
 <p>
         Evalues to true if the field value does not match the specified regular
         expression.
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><p>The following operators may be used, in addition, to match attribute values:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>&lt;</strong>, <strong>&lt;=</strong>, <strong>&gt;=</strong>, <strong>&gt;</strong>
+</dt>
+<dd>
+<p>
+        Evaluates to true if the attribute value is less than, less than or equal
+        to, greater than or equal to or greater than the specified value.
 </p>
 </dd>
 </dl></div>
@@ -295,6 +314,6 @@ FITNESS FOR A PARTICULAR PURPOSE.</p></div>
 <hr />
 <div id="footer">
 <p>
-Last updated 2014-05-31 22:53:48 CEST
+Last updated 2014-07-02 08:06:07 CEST
 </p>
 </div>
