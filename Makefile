@@ -2,7 +2,8 @@
 
 NEWS = \
 		adoc/news.html \
-		adoc/news/release-0.1.0.html
+		adoc/news/release-0.1.0.html \
+		adoc/news/release-0.2.0.html
 
 all: sysdb.io $(NEWS)
 
@@ -13,6 +14,7 @@ sysdb.io: src/sysdb.io.go
 
 adoc/news.html: adoc/news.txt adoc/news/*.txt
 adoc/news/release-0.1.0.html: adoc/news/release-0.1.0.txt
+adoc/news/release-0.2.0.html: adoc/news/release-0.2.0.txt
 
 install: sysdb.io $(NEWS)
 	./sysdb.io --force --output /var/www/sysdb.io
