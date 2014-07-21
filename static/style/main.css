@@ -233,6 +233,24 @@ div.right_container a.gplus:hover, a.gplus:focus, a.gplus:active {
 	margin: 0px 20px 0px 0px;
 }
 
+div.right_container a.facebook {
+	background-image: url(/images/facebook.png);
+	background-repeat: no-repeat;
+	height: 30px;
+	width: 30px;
+	display: inline-block;
+	margin: 0px 20px 0px 0px;
+}
+
+div.right_container a.facebook:hover, a.facebook:focus, a.facebook:active {
+	background-image: url(/images/facebook-blue.png);
+	background-repeat: no-repeat;
+	height: 30px;
+	width: 30px;
+	display: inline-block;
+	margin: 0px 20px 0px 0px;
+}
+
 div.social-buttons {
 	padding: 0px;
 }
