@@ -138,7 +138,6 @@ div.left_container {
 div.main_container {
 	margin-right: 220px;
 	padding: 0px 20px;
-	float: left;
 	text-align: justify;
 }
 
@@ -292,6 +291,12 @@ div.footer a {
 
 .small {
 	font-size: .8em;
+}
+
+.warn {
+	font-size: 1.3em;
+	color: #1e466d;
+	font-weight: bold;
 }
 
 .blue {
