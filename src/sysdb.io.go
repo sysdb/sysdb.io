@@ -43,11 +43,12 @@ var configfile = flag.String("configfile", "sysdb.conf", "config file name")
 var output = flag.String("output", "/var/www/sysdb.io", "output directory")
 
 type templ struct {
-	Title    string   `json:"title"`
-	Template string   `json:"template"`
-	JS       []string `json:"javascript"`
-	Left     string   `json:"left"`
-	Right    string   `json:"right"`
+	Title       string   `json:"title"`
+	Description string   `json:"description"`
+	Template    string   `json:"template"`
+	JS          []string `json:"javascript"`
+	Left        string   `json:"left"`
+	Right       string   `json:"right"`
 }
 
 type config struct {
@@ -63,6 +64,16 @@ func (c config) title(page string) string {
 		log.Fatalf("Title q for page %q not found.", page)
 	}
 	return c.Defaults.Title
+}
+
+func (c config) description(page string) string {
+	if t, ok := c.Pages[page]; ok && t.Description != "" {
+		return t.Description
+	}
+	if c.Defaults.Description == "" {
+		log.Fatalf("Description q for page %q not found.", page)
+	}
+	return c.Defaults.Description
 }
 
 func (c config) js(page string) []string {
@@ -143,11 +154,13 @@ func writePage(templ *template.Template, page string, c *config) {
 	defer out.Close()
 
 	p := &struct {
-		Title string
-		JS    []string
+		Title       string
+		Description string
+		JS          []string
 	}{
-		Title: c.title(page),
-		JS:    c.js(page),
+		Title:       c.title(page),
+		Description: c.description(page),
+		JS:          c.js(page),
 	}
 
 	log.Printf("Writing page %q ...", file)
