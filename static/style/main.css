@@ -203,7 +203,7 @@ div.right_container a.github {
 	height: 30px;
 	width: 30px;
 	display: inline-block;
-	margin: 0px 20px 0px 0px;
+	margin: 0px 10px 0px 0px;
 }
 
 div.right_container a.github:hover, a.github:focus, a.github:active {
@@ -212,7 +212,7 @@ div.right_container a.github:hover, a.github:focus, a.github:active {
 	height: 30px;
 	width: 30px;
 	display: inline-block;
-	margin: 0px 20px 0px 0px;
+	margin: 0px 10px 0px 0px;
 }
 
 div.right_container a.gplus {
@@ -221,7 +221,7 @@ div.right_container a.gplus {
 	height: 30px;
 	width: 30px;
 	display: inline-block;
-	margin: 0px 20px 0px 0px;
+	margin: 0px 10px 0px 0px;
 }
 
 div.right_container a.gplus:hover, a.gplus:focus, a.gplus:active {
@@ -230,7 +230,25 @@ div.right_container a.gplus:hover, a.gplus:focus, a.gplus:active {
 	height: 30px;
 	width: 30px;
 	display: inline-block;
-	margin: 0px 20px 0px 0px;
+	margin: 0px 10px 0px 0px;
+}
+
+div.right_container a.twitter {
+	background-image: url(/images/twitter.png);
+	background-repeat: no-repeat;
+	height: 30px;
+	width: 30px;
+	display: inline-block;
+	margin: 0px 10px 0px 0px;
+}
+
+div.right_container a.twitter:hover, a.twitter:focus, a.twitter:active {
+	background-image: url(/images/twitter-blue.png);
+	background-repeat: no-repeat;
+	height: 30px;
+	width: 30px;
+	display: inline-block;
+	margin: 0px 10px 0px 0px;
 }
 
 div.right_container a.facebook {
@@ -239,7 +257,7 @@ div.right_container a.facebook {
 	height: 30px;
 	width: 30px;
 	display: inline-block;
-	margin: 0px 20px 0px 0px;
+	margin: 0px 10px 0px 0px;
 }
 
 div.right_container a.facebook:hover, a.facebook:focus, a.facebook:active {
@@ -248,7 +266,7 @@ div.right_container a.facebook:hover, a.facebook:focus, a.facebook:active {
 	height: 30px;
 	width: 30px;
 	display: inline-block;
-	margin: 0px 20px 0px 0px;
+	margin: 0px 10px 0px 0px;
 }
 
 div.social-buttons {
