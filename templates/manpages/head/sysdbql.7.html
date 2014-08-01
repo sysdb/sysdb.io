@@ -12,7 +12,7 @@
 </div></div>
 <div class="literalblock">
 <div class="content monospaced">
-<pre>QUERY hosts WHERE attribute.architecture = 'amd64';</pre>
+<pre>LOOKUP hosts MATCHING attribute.architecture = 'amd64';</pre>
 </div></div>
 </div>
 </div>
@@ -70,25 +70,26 @@ an error is returned.
 </p>
 </dd>
 <dt class="hdlist1">
-<strong>LOOKUP</strong> hosts <strong>WHERE</strong> <em>&lt;search_condition&gt;</em>
+<strong>LOOKUP</strong> hosts <strong>MATCHING</strong> <em>&lt;search_condition&gt;</em> [<strong>FILTER</strong> <em>&lt;filter_condition&gt;</em>]
 </dt>
 <dd>
 <p>
 Retrieve detailed information about all host objects matching the specified
 search condition. The return value is a list of detailed information for each
 matching host providing the same details as returned by the <strong>FETCH</strong> command.
-See the section "WHERE clause" for more details about how to specify the
-search condition.
+If a filter condition is specified, only objects matching that filter will be
+included in the reply. See the sections "MATCHING clause" and "FILTER clause"
+for more details about how to specify the search and filter conditions.
 </p>
 </dd>
 </dl></div>
 <div class="sect2">
-<h3 id="_where_clause">WHERE clause</h3>
-<div class="paragraph"><p>The <strong>WHERE</strong> clause in a query specifies a boolean expression which is used to
-match host objects based on their names, their attributes, or services
-referenced by the host. Each <strong>WHERE</strong> clause may be made up of one or multiple
-subexpressions each matching on one criteria. The following subexpressions
-are supported by SysDB:</p></div>
+<h3 id="_matching_clause">MATCHING clause</h3>
+<div class="paragraph"><p>The <strong>MATCHING</strong> clause in a query specifies a boolean expression which is used
+to match host objects based on their names, their attributes, or services
+referenced by the host. Each <strong>MATCHING</strong> clause may be made up of one or
+multiple subexpressions each matching on one criteria. The following
+subexpressions are supported by SysDB:</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
 <em>&lt;field&gt;</em> <em>&lt;operator&gt;</em> <em>&lt;value&gt;</em>
@@ -157,8 +158,8 @@ are supported by SysDB:</p></div>
 </dl></div>
 <div class="paragraph"><p><em>&lt;value&gt;</em> may either be a string (when matching by object names) or match the
 type of the attribute&#8217;s value (when matching attribute values). Attribute
-values may either be a string, integer, or decimal number (booleans and binary
-data are not supported by the frontend yet).</p></div>
+values may either be a string, integer, decimal number, or a date-time value
+(booleans and binary data are not supported by the frontend yet).</p></div>
 <div class="paragraph"><p>When comparing an attribute&#8217;s value using a regular expression matcher, the
 value will be cast to a string before doing so. No other casts are supported
 at this time.</p></div>
@@ -216,6 +217,59 @@ at this time.</p></div>
 and <strong>IS NOT NULL</strong> expressions. An attribute is considered to be <strong>NULL</strong> if it
 is not set for a host.</p></div>
 </div>
+<div class="sect2">
+<h3 id="_filter_clause">FILTER clause</h3>
+<div class="paragraph"><p>The <strong>FILTER</strong> clause in a query specifies a boolean expression which is used to
+filter objects included in the query&#8217;s response. The filter is applied to
+hosts, services, and attributes alike and, thus, will usually be based on the
+core properties of the stored objects. The basic syntax for filter clauses is
+the same as for matching clauses (see the description about subexpressions
+above).</p></div>
+<div class="paragraph"><p>The following common fields of stored objects may be queried:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>:last_update</strong>
+</dt>
+<dd>
+<p>
+        The timestamp of the last update of the object.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:age</strong>
+</dt>
+<dd>
+<p>
+        The amount of time since the last update of the object.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:interval</strong>
+</dt>
+<dd>
+<p>
+        The interval with which the object gets updated. This value is determined
+        automatically based on a moving average determined from the update
+        timestamps of an object. It depends on the update timestamps as provided
+        by the backend (if available) and SysDB&#8217;s query interval.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:backend</strong>
+</dt>
+<dd>
+<p>
+        The name of the backend (plugin) providing the data.
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><p>The type of the <strong>last_update</strong>, <strong>age</strong>, and <strong>interval</strong> fields is date-time and
+the type of the <strong>backend</strong> field is string. All conditional operators may be
+used to compare the date-time fields (but not regular expression or <strong>IS NULL</strong>
+operators). The backend field may only be matched by (in)equality. Each object
+may be provided by multiple backends. The filter matches if the specified
+value matches any of them.</p></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -268,7 +322,7 @@ replies look like. The replies are pretty-printed to more easily follow them.</p
 </div></div>
 <div class="literalblock">
 <div class="content monospaced">
-<pre>LOOKUP hosts WHERE attribute.architecture = 'amd64';
+<pre>LOOKUP hosts MATCHING attribute.architecture = 'amd64';
 [{
     "name": "host1.example.com",
     "last_update": "2001-02-03 04:05:06 +0700",
@@ -318,6 +372,6 @@ FITNESS FOR A PARTICULAR PURPOSE.</p></div>
 <hr />
 <div id="footer">
 <p>
-Last updated 2014-07-27 15:37:50 CEST
+Last updated 2014-08-01 20:52:58 CEST
 </p>
 </div>
