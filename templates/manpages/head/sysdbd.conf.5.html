@@ -25,6 +25,10 @@ LoadBackend "mk-livestatus"</pre>
 </div></div>
 <div class="literalblock">
 <div class="content monospaced">
+<pre>LoadPlugin "timeseries::rrdtool"</pre>
+</div></div>
+<div class="literalblock">
+<div class="content monospaced">
 <pre>&lt;LoadBackend "puppet::store-configs"&gt;
     Interval 1800
 &lt;/LoadBackend&gt;</pre>
@@ -185,6 +189,20 @@ facter facts information storing the latter as host attributes.
 </dl></div>
 </div>
 <div class="sect2">
+<h3 id="_time_series_fetcher">Time-series fetcher:</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>timeseries::rrdtool</strong>
+</dt>
+<dd>
+<p>
+This plugin adds support for fetching time-series data from RRD files.
+</p>
+<div class="paragraph"><p>See also: <a href="http://oss.oetiker.ch/rrdtool">http://oss.oetiker.ch/rrdtool</a></p></div>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
 <h3 id="_plugins_2">Plugins:</h3>
 <div class="dlist"><dl>
 <dt class="hdlist1">
@@ -219,6 +237,10 @@ system&#8217;s syslog service.
 <a href="sysdbd-puppet-store-configs.5.html">sysdbd-puppet-store-configs(5)</a></p></div>
 </div>
 <div class="sect2">
+<h3 id="_time_series_fetcher_documentation">Time-series fetcher documentation:</h3>
+<div class="paragraph"><p><a href="sysdbd-timeseries-rrdtool.5.html">sysdbd-timeseries-rrdtool(5)</a></p></div>
+</div>
+<div class="sect2">
 <h3 id="_plugin_documentation">Plugin documentation:</h3>
 <div class="paragraph"><p><a href="sysdbd-cname-dns.5.html">sysdbd-cname-dns(5)</a>, <a href="sysdbd-syslog.5.html">sysdbd-syslog(5)</a></p></div>
 </div>
@@ -242,6 +264,6 @@ FITNESS FOR A PARTICULAR PURPOSE.</p></div>
 <hr />
 <div id="footer">
 <p>
-Last updated 2014-07-27 15:37:50 CEST
+Last updated 2014-08-31 17:59:08 CEST
 </p>
 </div>

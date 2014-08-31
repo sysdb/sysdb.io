@@ -38,8 +38,10 @@ reference a list of services which represent any kind of logical resource like
 a software system. Both, hosts and services, may reference a list of
 attributes which represent further information about the respective host or
 service object. For example, attributes may specify static information like a
-host&#8217;s architecture or the software version or reference performance data like
-the current memory utilization or much more.</p></div>
+host&#8217;s architecture or the software version. A host may also reference a list
+of metrics which are references to performance data stored about the host.
+SysDB supports querying the respective time-series from a backend&#8217;s data
+store.</p></div>
 <div class="paragraph"><p>The SysDB query language is a human-readable format for describing a request
 to retrieve data from a SysDB daemon. It is very remotely similar to the
 Standard Query Language (SQL) supported by relational database management
@@ -93,6 +95,19 @@ an empty list is returned. If a filter condition is specified, only objects
 matching that filter will be included in the reply. See the sections "MATCHING
 clause" and "FILTER clause" for more details about how to specify the search
 and filter conditions.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>TIMESERIES</strong> <em>&lt;hostname&gt;</em>.<em>&lt;metric&gt;</em> [START <em>&lt;datetime&gt;</em>] [END <em>&lt;datetime&gt;</em>]
+</dt>
+<dd>
+<p>
+Retrieve a time-series for the specified host&#8217;s metric. The data is retrieved
+from a backend data-store based on information provided by the respective
+query plugin. The return value includes the actual start and end time of the
+time-series and one or multiple sequences of time-stamp / value pairs. If the
+metric does not exist or if the backend data-store is not supported, an error
+is returned.
 </p>
 </dd>
 </dl></div>
@@ -174,7 +189,8 @@ subexpressions are supported by SysDB:</p></div>
 <div class="paragraph"><p><em>&lt;value&gt;</em> may either be a string (when matching by object names) or match the
 type of the attribute&#8217;s value (when matching attribute values). Attribute
 values may either be a string, integer, decimal number, or a date-time value
-(booleans and binary data are not supported by the frontend yet).</p></div>
+(booleans and binary data are not supported by the frontend yet). See the
+section "DATA TYPES" for more details about how specify each data-type.</p></div>
 <div class="paragraph"><p>When comparing an attribute&#8217;s value using a regular expression matcher, the
 value will be cast to a string before doing so. No other casts are supported
 at this time.</p></div>
@@ -289,6 +305,70 @@ value matches any of them.</p></div>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_data_types">DATA TYPES</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The SysDB query language natively supports various data-types. Constants of
+all types may be used in any place where a value is expected.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>String constants</strong>
+</dt>
+<dd>
+<p>
+        A string constant is an arbitrary sequence of characters enclosed in
+        single quotes (<em>'</em>). Single quotes may be included in a string constant by
+        specifying two adjacent single quotes.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Integer constants</strong>
+</dt>
+<dd>
+<p>
+        An integer constant may be specified either as a sequence of digits or in
+        scientific notation written in the form "<em>a</em> E <em>b</em>" (without spaces) where
+        <em>a</em> and <em>b</em> are integers. A leading plus or minus sign specifies the sign
+        of the constant.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Floating-point constants</strong>
+</dt>
+<dd>
+<p>
+        A floating-point constant is a sequence of digits containing a decimal
+        point. Digits before or after the decimal point (but not both) are
+        optional. Floating-point constants may also be specified in scientific
+        notation by appending the letter "E" and a positive or negative integer
+        exponent. A leading plus or minus sign specifies the sign of the constant.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Date and time constants</strong>
+</dt>
+<dd>
+<p>
+        A date constant may be specified as <em>YYYY-MM-DD</em> and time constants may be
+        specified as <em>HH:MM:SS.nnnnnnnnn</em> where seconds and nanoseconds are
+        optional.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Interval constants</strong>
+</dt>
+<dd>
+<p>
+        An interval may be specified by one or multiple quantity and unit pairs.
+        The quantity may be any integer constant and the unit may be any of the
+        following: <strong>Y</strong> (years), <strong>M</strong> (months), <strong>D</strong> (days), <strong>h</strong> (hours), <strong>m</strong>
+        (minutes), <strong>s</strong> (seconds), <strong>ms</strong> (milliseconds), <strong>us</strong> (microseconds), or
+        <strong>ns</strong> (nanoseconds). Note that years and months are approximations.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_response_format">RESPONSE FORMAT</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>The JavaScript Object Notation (JSON) format, as specified in RFC 4627, is
@@ -388,6 +468,6 @@ FITNESS FOR A PARTICULAR PURPOSE.</p></div>
 <hr />
 <div id="footer">
 <p>
-Last updated 2014-08-03 00:42:49 CEST
+Last updated 2014-08-31 17:59:08 CEST
 </p>
 </div>
