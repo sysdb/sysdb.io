@@ -19,6 +19,11 @@ request.
 
 <h2 id="manpages">Manpages</h2>
 
+<p>
+The top-level manpages provide an overview of how SysDB works and how to use
+the server and client tools.
+</p>
+
 <ul>
 <li><a href="/manpages/head/sysdb.7.html">sysdb(7)</a>: SysDB overview</li>
 <li><a href="/manpages/head/sysdb.1.html">sysdb(1)</a>: interactive client
@@ -33,6 +38,13 @@ language</li>
 
 <h2>Backend Manpages</h2>
 
+<p>
+Backend plugins are the working horses of SysDB and responsible for collecting
+the information stored in the database. They provide means to connect to the
+backend systems, query relevant information, and submit them to the central
+store. Plugins may be loaded dynamically into the SysDB daemon.
+</p>
+
 <ul>
 <li><a href="/manpages/head/sysdbd-collectd-unixsock.5.html">collectd::unixsock(5)</a></li>
 <li><a href="/manpages/head/sysdbd-mk-livestatus.5.html">mk-livestatus(5)</a></li>
@@ -41,11 +53,24 @@ language</li>
 
 <h2>Time-series Fetcher Manpages</h2>
 
+<p>
+Time-series fetcher plugins provide generic means to retrieve time-series data
+from a backend's data-store. All plugins providing metrics information may
+also provide the necessary details about how to access the respective
+data-store. This may require additional configuration for the backend plugins.
+See their respective documentation for details.
+</p>
+
 <ul>
 <li><a href="/manpages/head/sysdbd-timeseries-rrdtool.5.html">timeseries::rrdtool(5)</a></li>
 </ul>
 
 <h2>Plugin Manpages</h2>
+
+<p>
+Other plugins may enhance the daemon in various ways, for example, by
+providing hostname canonicalization functionality.
+</p>
 
 <ul>
 <li><a href="/manpages/head/sysdbd-cname-dns.5.html">cname::dns(5)</a></li>
