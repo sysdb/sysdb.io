@@ -1,0 +1,71 @@
+<h1 class="manpage">sysdbd-timeseries-rrdtool(5) Manual Page</h1>
+<h2>NAME</h2>
+<div class="sectionbody">
+<p>sysdbd-timeseries-rrdtool - timeseries::rrdtool plugin</p>
+</div>
+<div class="sect1">
+<h2 id="_synopsis">SYNOPSIS</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content monospaced">
+<pre>LoadPlugin timeseries::rrdtool</pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description">DESCRIPTION</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>timeseries::rrdtool</strong> is a plugin which adds support for fetching time-series
+data from RRD files.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration">CONFIGURATION</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>timeseries::rrdtool</strong> accepts the following configuration options. In addition
+to any configuration, the plugin always registers a time-series fetcher
+callback called <strong>rrdtool</strong> which may be used to access RRD files on local disk.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>RRDCacheD</strong> <em>&lt;addr&gt;</em>
+</dt>
+<dd>
+<p>
+        Enable support for RRDCacheD. When using this option, an additional
+        time-series fetcher callback called <strong>rrdcached</strong> is made available. It will
+        flush cached updates for an RRD file before fetching data from it.
+        Currently, local connections through a UNIX socket are supported only.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">SEE ALSO</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><a href="sysdbd.1.html">sysdbd(1)</a>, <a href="sysdbd.conf.5.html">sysdbd.conf(5)</a>,
+<a href="http://oss.oetiker.ch/rrdtool">http://oss.oetiker.ch/rrdtool</a></p></div>
+<div class="paragraph"><p>The SysDB homepage: <a href="http://sysdb.io/">http://sysdb.io/</a></p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_author">AUTHOR</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>SysDB was written by Sebastian "tokkee" Harl &lt;<a href="mailto:sh@tokkee.org">sh@tokkee.org</a>&gt;.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_copyright">COPYRIGHT</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Copyright &#169; 2012-2014 Sebastian "tokkee" Harl &lt;<a href="mailto:sh@tokkee.org">sh@tokkee.org</a>&gt;</p></div>
+<div class="paragraph"><p>This is free software under the terms of the BSD license, see the source for
+copying conditions. There is NO WARRANTY; not even for MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.</p></div>
+</div>
+</div>
+<hr />
+<div id="footer">
+<p>
+Last updated 2014-08-31 17:59:08 CEST
+</p>
+</div>
