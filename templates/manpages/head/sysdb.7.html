@@ -58,10 +58,62 @@ query language in <a href="sysdbql.7.html">sysdbql(7)</a>.</p></div>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_concepts">CONCEPTS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>SysDB&#8217;s features are build around a set of concepts which are explained in
+this section.</p></div>
+<div class="sect2">
+<h3 id="_hosts_and_services">Hosts and Services</h3>
+<div class="paragraph"><p>The basic building block of SysDB&#8217;s store are host and service objects
+representing physical and logical resources. Each host is identified by a
+unique name and each service is identified by a unique pair of a hostname and
+a service name. All services are assigned to the respective host which is
+usually interpreted as the service running on that host. In addition, hosts
+and services may have a list of attributes assigned to them. These are
+arbitrary key-value pairs providing additional information about the
+respective object and they may be used to further categorize and identify an
+object. For example, the <strong>mk-livestatus</strong> and <strong>puppet::store-configs</strong> backend
+plugins provide a list of all hosts and services known to the monitoring
+system queried through the Check_MK livestatus interface and all hosts will be
+attributed with all "fact" values known to Puppet. This allows to query hosts
+based on facts like architecture or LSB information using query commands like
+<strong>LOOKUP</strong> (see <a href="sysdbql.7.html">sysdbql(7)</a>).</p></div>
+<div class="paragraph"><p>Host and service objects are managed by backend plugins and queried from other
+systems, like inventory databases or monitoring systems.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_hostname_canonicalization">Hostname Canonicalization</h3>
+<div class="paragraph"><p>Before storing an object in SysDB&#8217;s store, any hostname used to identify the
+object is canonicalized. This is done by so called "cname" plugins and may be
+based on arbitrary information derived from the original hostname. This way,
+hosts provided by different backends may be mapped to the same host in SysDB
+even if, for example, one backend uses short hostnames while another uses
+fully qualified domain names (FQDNs). For example, the <strong>cname::dns</strong> plugin
+uses reverse DNS queries to resolve a name to its canonical hostname as
+provided by DNS.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_metrics_and_time_series">Metrics and Time-Series</h3>
+<div class="paragraph"><p>A metric identifies performance data about a host. SysDB does not collect or
+store the actual data but collects information about which metrics are
+available from backends. It then provides a generic way to fetch time-series
+data directly from a backend&#8217;s data-store. In some cases, this requires
+additional configuration. For example, the <strong>collectd::unixsock</strong> plugin
+provides information about which metrics are available from a collectd
+instance. Using the <strong>TimeseriesBackend</strong> and <strong>TimeseriesBaseURL</strong> configuration
+options (see <a href="sysdbd-collectd-unixsock.5.html">sysdbd-collectd-unixsock(5)</a>), SysDB may be told where to
+fetch time-series data from. The details are automatically managed by the
+plugin and the <strong>timeseries::rrdtool</strong> plugin may be used to fetch the data from
+RRD files managed by collectd. Fetching the data may be done using the
+<strong>TIMESERIES</strong> query command (see <a href="sysdbql.7.html">sysdbql(7)</a>).</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_see_also">SEE ALSO</h2>
 <div class="sectionbody">
 <div class="paragraph"><p><a href="sysdb.1.html">sysdb(1)</a>, <a href="sysdbd.1.html">sysdbd(1)</a>, <a href="sysdbql.7.html">sysdbql(7)</a></p></div>
-<div class="paragraph"><p>The SysDB homepage: <a href="http://sysdb.io/">http://sysdb.io/</a></p></div>
+<div class="paragraph"><p>The SysDB homepage: <a href="https://sysdb.io/">https://sysdb.io/</a></p></div>
 </div>
 </div>
 <div class="sect1">
@@ -82,6 +134,6 @@ FITNESS FOR A PARTICULAR PURPOSE.</p></div>
 <hr />
 <div id="footer">
 <p>
-Last updated 2014-07-27 15:37:50 CEST
+Last updated 2014-09-01 20:48:06 CEST
 </p>
 </div>
