@@ -9,6 +9,10 @@ internal data store, they may be canonicalized. This way, different names
 provided by different backends may be mapped to the same object in
 SysDB.</p></li>
 
+<li><p><b>Transparent access to time-series data:</b> Backend data-stores
+(e.g. RRD files) may be queried through SysDB without having to worry about
+details except for the time-series's identifier.</p></li>
+
 <li><p><b>Simple, yet flexible object-types:</b> Each object (host, service,
 attribute) stored in SysDB is automatically attributed with last-update and
 interval information allowing for detecting out-of-date entries. Host and
