@@ -36,6 +36,7 @@ import (
 	"log"
 	"os"
 	"path"
+	"strings"
 )
 
 var force = flag.Bool("force", false, "force overwriting pages")
@@ -154,10 +155,12 @@ func writePage(templ *template.Template, page string, c *config) {
 	defer out.Close()
 
 	p := &struct {
+		Path        string
 		Title       string
 		Description string
 		JS          []string
 	}{
+		Path:        strings.TrimSuffix(page, "index.html"),
 		Title:       c.title(page),
 		Description: c.description(page),
 		JS:          c.js(page),
