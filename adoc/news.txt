@@ -1,3 +1,5 @@
+include::news/sysdb.go.txt[]
+
 include::news/release-0.4.0.txt[]
 
 include::news/release-0.3.0.txt[]

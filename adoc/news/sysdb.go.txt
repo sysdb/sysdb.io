@@ -1,0 +1,27 @@
+link:/news/sysdb.go.html[2014-09-21: Go bindings for SysDB]
+-----------------------------------------------------------
+
+A few days ago, the first version of Go bindings for SysDB have been pushed to
+link:https://github.com/sysdb/go[github.com/sysdb/go]. The project provides a
+set of packages for the link:https://golang.org/[Go] programming language
+(golang) which implement a SysDB client and helper functions for handling the
+front-end protocol.
+
+Install the package into your GOPATH using the
+link:https://golang.org/cmd/go/#hdr-Download_and_install_packages_and_dependencies[go
+get] command:
+
+-----
+go get github.com/sysdb/go
+-----
+
+The documentation is included with the source code in a way compatible with
+the link:https://golang.org/cmd/godoc/[godoc tool] and the latest version can
+be viewed link:https://godoc.org/github.com/sysdb/go[online].
+
+At the moment, the following packages are available:
+
+* *client*: A SysDB client implementation.
+* *proto*: Helper functions for using the SysDB front-end protocol. That's the
+  protocol used for communication between a client and a SysDB server instance.
+* *sysdb*: Core constants and types used by SysDB packages.
