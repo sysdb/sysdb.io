@@ -1,14 +1,15 @@
 <h1 class="manpage">sysdbql(7) Manual Page</h1>
 <h2>NAME</h2>
 <div class="sectionbody">
-<p>sysdbql - the SysDB query language</p>
+<p>sysdbql - the SysDB query language (SysQL)</p>
 </div>
 <div class="sect1">
 <h2 id="_synopsis">SYNOPSIS</h2>
 <div class="sectionbody">
 <div class="literalblock">
 <div class="content monospaced">
-<pre>LIST hosts;</pre>
+<pre>LIST hosts;
+LIST services;</pre>
 </div></div>
 <div class="literalblock">
 <div class="content monospaced">
@@ -42,9 +43,9 @@ host&#8217;s architecture or the software version. A host may also reference a l
 of metrics which are references to performance data stored about the host.
 SysDB supports querying the respective time-series from a backend&#8217;s data
 store.</p></div>
-<div class="paragraph"><p>The SysDB query language is a human-readable format for describing a request
-to retrieve data from a SysDB daemon. It is very remotely similar to the
-Standard Query Language (SQL) supported by relational database management
+<div class="paragraph"><p>The SysDB query language (SysQL) is a human-readable format for describing a
+request to retrieve data from a SysDB daemon. It is very remotely similar to
+the Standard Query Language (SQL) supported by relational database management
 systems (RDBMS) but specialized for SysDB&#8217;s use-case.</p></div>
 </div>
 </div>
@@ -55,14 +56,16 @@ systems (RDBMS) but specialized for SysDB&#8217;s use-case.</p></div>
 available to retrieve information from SysDB:</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
-<strong>LIST</strong> hosts [<strong>FILTER</strong> <em>&lt;filter_condition&gt;</em>]
+<strong>LIST</strong> hosts|services|metrics [<strong>FILTER</strong> <em>&lt;filter_condition&gt;</em>]
 </dt>
 <dd>
 <p>
-Retrieve a sorted (by name) list of all hosts currently stored in SysDB. The
-return value is a list of hosts where each host specification includes its
-name, the timestamp of the last update of the object known to SysDB and an
-approximation of the interval with which the host was updated. If a filter
+Retrieve a sorted (by name) list of all hosts currently stored in SysDB along
+with their services or metrics if requested. The return value is a list of
+hosts where each host specification includes its name, the timestamp of the
+last update of the object known to SysDB and an approximation of the interval
+with which the host was updated. When listing services or metrics, the
+respective objects will be included for each host as well. If a filter
 condition is specified, only objects matching that filter will be included in
 the reply. See the section "FILTER clause" for more details about how to
 specify the search and filter conditions.
@@ -383,7 +386,7 @@ replies look like. The replies are pretty-printed to more easily follow them.</p
 <div class="literalblock">
 <div class="content monospaced">
 <pre>LIST hosts;
-{"hosts":[{
+[{
     "name": "host1.example.com",
     "last_update": "2001-02-03 04:05:06 +0700",
     "update_interval": "5m4s"
@@ -391,7 +394,7 @@ replies look like. The replies are pretty-printed to more easily follow them.</p
     "name": "host2.example.com",
     "last_update": "2001-02-03 04:05:06 +0700",
     "update_interval": "5m4s"
-  }]}</pre>
+  }]</pre>
 </div></div>
 <div class="literalblock">
 <div class="content monospaced">
@@ -468,6 +471,6 @@ FITNESS FOR A PARTICULAR PURPOSE.</p></div>
 <hr />
 <div id="footer">
 <p>
-Last updated 2014-09-01 20:48:06 CEST
+Last updated 2014-10-04 23:53:38 CEST
 </p>
 </div>
