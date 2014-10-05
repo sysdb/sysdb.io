@@ -1,12 +1,12 @@
 .SUFFIXES: .txt .html
 
 NEWS = \
-		adoc/news.html \
-		adoc/news/release-0.1.0.html \
-		adoc/news/release-0.2.0.html \
-		adoc/news/release-0.3.0.html \
-		adoc/news/release-0.4.0.html \
-		adoc/news/sysdb.go.html
+		news/news.html \
+		news/release-0.1.0.html \
+		news/release-0.2.0.html \
+		news/release-0.3.0.html \
+		news/release-0.4.0.html \
+		news/sysdb.go.html
 
 all: sysdb.io $(NEWS)
 
@@ -15,12 +15,12 @@ all-install: install man-install
 sysdb.io: src/sysdb.io.go
 	go build $<
 
-adoc/news.html: adoc/news.txt adoc/news/*.txt
-adoc/news/release-0.1.0.html: adoc/news/release-0.1.0.txt
-adoc/news/release-0.2.0.html: adoc/news/release-0.2.0.txt
-adoc/news/release-0.3.0.html: adoc/news/release-0.3.0.txt
-adoc/news/release-0.4.0.html: adoc/news/release-0.4.0.txt
-adoc/news/sysdb.go.html: adoc/news/sysdb.go.txt
+news/news.html: news/*.txt
+news/release-0.1.0.html: news/release-0.1.0.txt
+news/release-0.2.0.html: news/release-0.2.0.txt
+news/release-0.3.0.html: news/release-0.3.0.txt
+news/release-0.4.0.html: news/release-0.4.0.txt
+news/sysdb.go.html: news/sysdb.go.txt
 
 install: sysdb.io $(NEWS)
 	./sysdb.io --force --output /var/www/sysdb.io
