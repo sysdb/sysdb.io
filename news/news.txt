@@ -1,3 +1,12 @@
+++++++++++
+<p class="feed">
+<img src="/images/feed.png" alt="[feed]" class="feed" />
+<b>Subscribe to the <a href="https://sysdb.io/news.rss">RSS</a> or
+<a href="https://sysdb.io/news.atom">Atom</a> feed to receive updates
+automatically.</b>
+</p>
+++++++++++
+
 include::sysdb.go.txt[]
 
 include::release-0.4.0.txt[]
