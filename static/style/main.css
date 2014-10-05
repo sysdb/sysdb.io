@@ -325,6 +325,18 @@ div.footer a {
 	margin: 0px 5px;
 }
 
+img.feed {
+	vertical-align: middle;
+}
+
+a.feed, a.feed:hover, a.feed:focus, a.feed:active {
+	vertical-align: middle;
+	text-decoration: underline;
+	font-weight: bold;
+	background-color: transparent;
+	color: #D96B11;
+}
+
 .small {
 	font-size: .8em;
 }
