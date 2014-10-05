@@ -27,7 +27,7 @@ news/sysdb.go.html: news/sysdb.go.txt
 
 install: sysdb.io $(NEWS)
 	./sysdb.io --force --output /var/www/sysdb.io
-	rsync -vax static/ /var/www/sysdb.io
+	rsync --exclude '.*.swp' -vax static/ /var/www/sysdb.io
 
 man-head:
 	# TODO: bootstrap sysdb build system if needed
