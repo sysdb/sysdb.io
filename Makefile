@@ -13,7 +13,10 @@ all: sysdb.io $(NEWS)
 all-install: install man-install
 
 sysdb.io: src/sysdb.io.go
-	go build $<
+	GOPATH="$(CURDIR)" go build $<
+
+newsconv: src/newsconv.go
+	GOPATH="$(CURDIR)" go build $<
 
 news/news.html: news/*.txt
 news/release-0.1.0.html: news/release-0.1.0.txt
