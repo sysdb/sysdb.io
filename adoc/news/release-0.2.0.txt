@@ -1,4 +1,4 @@
-link:/news/release-0.2.0.html[2014-07-01: Version 0.2.0]
+link:/news/release-0.2.0.html[2014-07-02: Version 0.2.0]
 --------------------------------------------------------
 
 This is another development snapshot of SysDB. The main focus of this release
