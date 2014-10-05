@@ -1,3 +1,6 @@
 [submodule "src/sysdb"]
 	path = src/sysdb
 	url = git://github.com/sysdb/sysdb.git
+[submodule "src/github.com/gorilla/feeds"]
+	path = src/github.com/gorilla/feeds
+	url = git://github.com/gorilla/feeds
