@@ -25,7 +25,7 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-// sysdb.io is a template-based generator of the SysDB website
+// sysdb.io is the template-based generator of the SysDB website.
 package main
 
 import (
