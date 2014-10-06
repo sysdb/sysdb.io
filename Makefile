@@ -30,7 +30,7 @@ install: sysdb.io $(NEWS)
 	rsync --exclude '.*.swp' -vax static/ /var/www/sysdb.io
 
 man-head:
-	# TODO: bootstrap sysdb build system if needed
+	#cd src/sysdb && ./autogen.sh && make configure
 	rm -f src/sysdb/doc/*.html
 	make -C src/sysdb/doc/ ADOCFLAGS="-f $(CURDIR)/asciidoc.conf"
 	mkdir -p templates/manpages/head
