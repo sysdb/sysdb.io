@@ -17,8 +17,8 @@ LIST services;</pre>
 </div></div>
 <div class="literalblock">
 <div class="content monospaced">
-<pre>LOOKUP hosts MATCHING attribute.architecture = 'amd64'
-             FILTER :age &lt; 5 * :interval;</pre>
+<pre>LOOKUP hosts MATCHING attribute[architecture] = 'amd64'
+             FILTER .age &lt; 5 * .interval;</pre>
 </div></div>
 </div>
 </div>
@@ -178,14 +178,14 @@ subexpressions are supported by SysDB:</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
-<strong>attribute.</strong><em>&lt;name&gt;</em>
+<strong>attribute[</strong><em>&lt;name&gt;</em><strong>]</strong>
 </dt>
 <dd>
 <p>
         The value of the named host attribute. If an attribute of the specified
-        does not exist, each comparison is treated as if the value does not match.
-        See the documentation for the <strong>IS NULL</strong> and <strong>IS NOT NULL</strong> operators for
-        ways to check if an attribute exists.
+        name does not exist, each comparison is treated as if the value does not
+        match. See the documentation for the <strong>IS NULL</strong> and <strong>IS NOT NULL</strong> operators
+        for ways to check if an attribute exists.
 </p>
 </dd>
 </dl></div>
@@ -262,7 +262,7 @@ above).</p></div>
 <div class="paragraph"><p>The following fields (core properties) of stored objects may be queried:</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
-<strong>:last_update</strong>
+<strong>.last_update</strong>
 </dt>
 <dd>
 <p>
@@ -271,7 +271,7 @@ above).</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
-<strong>:age</strong>
+<strong>.age</strong>
 </dt>
 <dd>
 <p>
@@ -279,7 +279,7 @@ above).</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
-<strong>:interval</strong>
+<strong>.interval</strong>
 </dt>
 <dd>
 <p>
@@ -290,7 +290,7 @@ above).</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
-<strong>:backend</strong>
+<strong>.backend</strong>
 </dt>
 <dd>
 <p>
@@ -421,7 +421,7 @@ replies look like. The replies are pretty-printed to more easily follow them.</p
 </div></div>
 <div class="literalblock">
 <div class="content monospaced">
-<pre>LOOKUP hosts MATCHING attribute.architecture = 'amd64';
+<pre>LOOKUP hosts MATCHING attribute[architecture] = 'amd64';
 [{
     "name": "host1.example.com",
     "last_update": "2001-02-03 04:05:06 +0700",
@@ -471,6 +471,6 @@ FITNESS FOR A PARTICULAR PURPOSE.</p></div>
 <hr />
 <div id="footer">
 <p>
-Last updated 2014-10-04 23:53:38 CEST
+Last updated 2014-10-06 21:52:54 CEST
 </p>
 </div>
