@@ -7,6 +7,7 @@ NEWS = \
 		news/release-0.3.0.html \
 		news/release-0.4.0.html \
 		news/release-0.5.0.html \
+		news/release-0.6.0.html \
 		news/sysdb.go.html
 
 all: sysdb.io $(NEWS)
@@ -25,6 +26,7 @@ news/release-0.2.0.html: news/release-0.2.0.txt
 news/release-0.3.0.html: news/release-0.3.0.txt
 news/release-0.4.0.html: news/release-0.4.0.txt
 news/release-0.5.0.html: news/release-0.5.0.txt
+news/release-0.6.0.html: news/release-0.6.0.txt
 news/sysdb.go.html: news/sysdb.go.txt
 
 install: sysdb.io newsconv $(NEWS)
