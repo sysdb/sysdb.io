@@ -17,8 +17,9 @@ LIST services;</pre>
 </div></div>
 <div class="literalblock">
 <div class="content monospaced">
-<pre>LOOKUP hosts MATCHING attribute[architecture] = 'amd64'
-             FILTER .age &lt; 5 * .interval;</pre>
+<pre>LOOKUP hosts MATCHING attribute['architecture'] = 'amd64'
+                 AND 'backend::collectd::unixsock' in backend
+             FILTER age &lt; 5 * interval;</pre>
 </div></div>
 </div>
 </div>
@@ -60,44 +61,45 @@ available to retrieve information from SysDB:</p></div>
 </dt>
 <dd>
 <p>
-Retrieve a sorted (by name) list of all hosts currently stored in SysDB along
-with their services or metrics if requested. The return value is a list of
-hosts where each host specification includes its name, the timestamp of the
-last update of the object known to SysDB and an approximation of the interval
-with which the host was updated. When listing services or metrics, the
-respective objects will be included for each host as well. If a filter
+Retrieve a sorted (by name) list of all objects of the specified type
+currently stored in SysDB. The return value is a list of objects including
+their names, the timestamp of the last update and an approximation of the
+interval with which the host was updated. When listing services or metrics,
+the respective objects will be grouped by host. If a filter condition is
+specified, only objects matching that filter will be included in the reply.
+See the section "FILTER clause" for more details about how to specify the
+search and filter conditions.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>FETCH</strong> host <em>&lt;hostname&gt;</em> [<strong>FILTER</strong> <em>&lt;filter_condition&gt;</em>]
+</dt>
+<dt class="hdlist1">
+<strong>FETCH</strong> service|metric <em>&lt;hostname&gt;</em>.<em>&lt;name&gt;</em> [<strong>FILTER</strong> <em>&lt;filter_condition&gt;</em>]
+</dt>
+<dd>
+<p>
+Retrieve detailed information about the specified object. The return value
+includes the full object including all of its attributes and child objects.
+If the named object does not exist, an error is returned. If a filter
 condition is specified, only objects matching that filter will be included in
 the reply. See the section "FILTER clause" for more details about how to
 specify the search and filter conditions.
 </p>
 </dd>
 <dt class="hdlist1">
-<strong>FETCH</strong> host <em>&lt;hostname&gt;</em> [<strong>FILTER</strong> <em>&lt;filter_condition&gt;</em>]
+<strong>LOOKUP</strong> hosts|services|metrics [<strong>MATCHING</strong> <em>&lt;search_condition&gt;</em>] [<strong>FILTER</strong> <em>&lt;filter_condition&gt;</em>]
 </dt>
 <dd>
 <p>
-Retrieve detailed information about the specified host object. The return
-value includes the hostname, a list of services referenced by the host, and a
-list of attributes for the host and each service. If the host does not exist,
-an error is returned. If a filter condition is specified, only objects
-matching that filter will be included in the reply. See the section "FILTER
-clause" for more details about how to specify the search and filter
-conditions.
-</p>
-</dd>
-<dt class="hdlist1">
-<strong>LOOKUP</strong> hosts <strong>MATCHING</strong> <em>&lt;search_condition&gt;</em> [<strong>FILTER</strong> <em>&lt;filter_condition&gt;</em>]
-</dt>
-<dd>
-<p>
-Retrieve detailed information about all host objects matching the specified
-search condition. The return value is a list of detailed information for each
-matching host providing the same details as returned by the <strong>FETCH</strong> command.
-If no host matches the search criteria, it&#8217;s not considered an error. Instead,
-an empty list is returned. If a filter condition is specified, only objects
-matching that filter will be included in the reply. See the sections "MATCHING
-clause" and "FILTER clause" for more details about how to specify the search
-and filter conditions.
+Retrieve detailed information about all objects matching the specified search
+condition. The return value is a list of detailed information for each
+matching object providing the same details as returned by the <strong>FETCH</strong> command.
+If no object matches the search criteria, it&#8217;s not considered an error.
+Instead, an empty list is returned. If a filter condition is specified, only
+objects matching that filter will be included in the reply. See the sections
+"MATCHING clause" and "FILTER clause" for more details about how to specify
+the search and filter conditions.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -117,139 +119,9 @@ is returned.
 <div class="sect2">
 <h3 id="_matching_clause">MATCHING clause</h3>
 <div class="paragraph"><p>The <strong>MATCHING</strong> clause in a query specifies a boolean expression which is used
-to match host objects based on their names, their attributes, or services
-referenced by the host. Each <strong>MATCHING</strong> clause may be made up of one or
-multiple subexpressions each matching on one criteria. The following
-subexpressions are supported by SysDB:</p></div>
-<div class="dlist"><dl>
-<dt class="hdlist1">
-<em>&lt;field&gt;</em> <em>&lt;operator&gt;</em> <em>&lt;value&gt;</em>
-</dt>
-<dd>
-<p>
-        Match a named field against the specified value. See below for what fields
-        and operators are supported.
-</p>
-</dd>
-<dt class="hdlist1">
-<strong>NOT</strong> <em>&lt;subexpression&gt;</em>
-</dt>
-<dd>
-<p>
-        Invert the boolean result of the specified subexpression.
-</p>
-</dd>
-<dt class="hdlist1">
-<em>&lt;subexpression&gt;</em> <strong>AND</strong> <em>&lt;subexpression&gt;</em>
-</dt>
-<dt class="hdlist1">
-<em>&lt;subexpression&gt;</em> <strong>OR</strong> <em>&lt;subexpression&gt;</em>
-</dt>
-<dd>
-<p>
-        Combine multiple subexpressions using logical AND or logical OR.
-</p>
-</dd>
-</dl></div>
-<div class="paragraph"><p>The following fields may be queried:</p></div>
-<div class="dlist"><dl>
-<dt class="hdlist1">
-<strong>host</strong>
-</dt>
-<dd>
-<p>
-        The full name of the host.
-</p>
-</dd>
-<dt class="hdlist1">
-<strong>service</strong>
-</dt>
-<dd>
-<p>
-        The full service name as referenced by the host.
-</p>
-</dd>
-<dt class="hdlist1">
-<strong>attribute</strong>
-</dt>
-<dd>
-<p>
-        The full name of a host attribute.
-</p>
-</dd>
-<dt class="hdlist1">
-<strong>attribute[</strong><em>&lt;name&gt;</em><strong>]</strong>
-</dt>
-<dd>
-<p>
-        The value of the named host attribute. If an attribute of the specified
-        name does not exist, each comparison is treated as if the value does not
-        match. See the documentation for the <strong>IS NULL</strong> and <strong>IS NOT NULL</strong> operators
-        for ways to check if an attribute exists.
-</p>
-</dd>
-</dl></div>
-<div class="paragraph"><p><em>&lt;value&gt;</em> may either be a string (when matching by object names) or match the
-type of the attribute&#8217;s value (when matching attribute values). Attribute
-values may either be a string, integer, decimal number, or a date-time value
-(booleans and binary data are not supported by the frontend yet). See the
-section "DATA TYPES" for more details about how specify each data-type.</p></div>
-<div class="paragraph"><p>When comparing an attribute&#8217;s value using a regular expression matcher, the
-value will be cast to a string before doing so. No other casts are supported
-at this time.</p></div>
-<div class="paragraph"><p>The following operators may be used to match field values:</p></div>
-<div class="dlist"><dl>
-<dt class="hdlist1">
-<strong>=</strong>
-</dt>
-<dd>
-<p>
-        Evaluates to true if the field value exactly matches the specified value.
-</p>
-</dd>
-<dt class="hdlist1">
-<strong>!=</strong>
-</dt>
-<dd>
-<p>
-        Evaluates to true if the field value does not match the exact specified
-        value.
-</p>
-</dd>
-<dt class="hdlist1">
-<strong>=~</strong>
-</dt>
-<dd>
-<p>
-        Evaluates to true if the field value matches the specified regular
-        expression. SysDB uses POSIX extended regular expressions.
-</p>
-</dd>
-<dt class="hdlist1">
-<strong>!~</strong>
-</dt>
-<dd>
-<p>
-        Evalues to true if the field value does not match the specified regular
-        expression.
-</p>
-</dd>
-</dl></div>
-<div class="paragraph"><p>The following operators may be used, in addition, to match attribute values:</p></div>
-<div class="dlist"><dl>
-<dt class="hdlist1">
-<strong>&lt;</strong>, <strong>&lt;=</strong>, <strong>&gt;=</strong>, <strong>&gt;</strong>
-</dt>
-<dd>
-<p>
-        Evaluates to true if the attribute value is less than, less than or equal
-        to, greater than or equal to or greater than the specified value.
-</p>
-</dd>
-</dl></div>
-<div class="paragraph"><p>In addition, a named attribute may be checked for existence using the <strong>IS
-NULL</strong> and <strong>IS NOT NULL</strong> operators. An attribute is considered to be <strong>NULL</strong> if
-it is not set for a host.</p></div>
+to match objects based on their fields, attributes, or child objects. Any
+object for which the expression evaluates to true will be included in the
+result set according to the rules set by the actual query.</p></div>
 </div>
 <div class="sect2">
 <h3 id="_filter_clause">FILTER clause</h3>
@@ -257,53 +129,258 @@ it is not set for a host.</p></div>
 filter objects included in the query&#8217;s response. The filter is applied to
 hosts, services, and attributes alike and, thus, will usually be based on the
 core properties of the stored objects. The basic syntax for filter clauses is
-the same as for matching clauses (see the description about subexpressions
-above).</p></div>
-<div class="paragraph"><p>The following fields (core properties) of stored objects may be queried:</p></div>
+the same as for matching clauses.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_expressions">Expressions</h3>
+<div class="paragraph"><p>Expressions form the basic building block for all queries. Boolean expressions
+select objects based on the values of arithmetic expressions which operate on
+object specific values (fields) or constant values.</p></div>
+<div class="paragraph"><p>Boolean expressions may use the following operators:</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
-<strong>.last_update</strong>
+<em>&lt;expression&gt;</em> <strong>AND</strong> <em>&lt;expression&gt;</em>
+</dt>
+<dt class="hdlist1">
+<em>&lt;expression&gt;</em> <strong>OR</strong> <em>&lt;expression&gt;</em>
+</dt>
+<dd>
+<p>
+        Evaluates to the logical AND or logical OR of the specified
+        subexpressions.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>NOT</strong> <em>&lt;expression&gt;</em>
+</dt>
+<dd>
+<p>
+        Invert the boolean result of the specified subexpression.
+</p>
+</dd>
+<dt class="hdlist1">
+<em>&lt;expression&gt;</em> <em>&lt;cmp&gt;</em> <em>&lt;expression&gt;</em>
+</dt>
+<dd>
+<p>
+        Compare the values of two expressions using any compare operator (see
+        below). Evaluates to either true or false. Comparing any value with a NULL
+        value always evaluates to false. The data types of the two values have to
+        match except for a few cases as noted in the documentation of the
+        respective operator.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>ANY</strong> <em>&lt;iterable&gt;</em> <em>&lt;cmp&gt;</em> <em>&lt;expression&gt;</em>
+</dt>
+<dd>
+<p>
+        Compares each element of an iterable using any compare operator. Evaluates
+        to true if any of the elements matches or false if no such elements exist.
+        Otherwise, the same rules as for other comparison operations apply.
+        Attributes, a host&#8217;s services and metrics, and arrays are iterables.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>ALL</strong> <em>&lt;iterable&gt;</em> <em>&lt;cmp&gt;</em> <em>&lt;expression&gt;</em>
+</dt>
+<dd>
+<p>
+        <strong>ALL</strong> is similar to the <strong>ANY</strong> operator but matches if all elements match
+        or if no elements exist.
+</p>
+</dd>
+<dt class="hdlist1">
+<em>&lt;expression&gt;</em> <strong>IS NULL</strong>
+</dt>
+<dt class="hdlist1">
+<em>&lt;expression&gt;</em> <strong>IS NOT NULL</strong>
+</dt>
+<dd>
+<p>
+        Check whether an expression evaluates to a NULL value (or not). An
+        expression evaluates to NULL if the queried object does not exist (e.g.,
+        when accessing an attribute value).
+</p>
+</dd>
+<dt class="hdlist1">
+<em>&lt;expression&gt;</em> <strong>IN</strong> <em>&lt;expression&gt;</em>
+</dt>
+<dd>
+<p>
+        Checks whether the value of the first expression is included in the value
+        of the second expression which has to be an array value (e.g., <strong>backend</strong>
+        field). If the second value is not an array or if the type of the first
+        value does not match the array&#8217;s element type, the expression always
+        evaluates to false. The first value may also be an array. In this case,
+        the expression evaluates to true if all elements of that array are
+        included in the second array where order does not matter.
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><p>Parentheses (<em>()</em>) may be used around subexpressions to group them and enforce
+precedence.</p></div>
+<div class="paragraph"><p>The following fields may be queried:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>name</strong>
+</dt>
+<dd>
+<p>
+        The canonicalized name of the object. The type of this field is string.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>last_update</strong>
 </dt>
 <dd>
 <p>
         The timestamp of the last update of the object. This value is based on
-        information provided by the queried backend if possible.
+        information provided by the queried backend if possible. The type of this
+        field is date-time.
 </p>
 </dd>
 <dt class="hdlist1">
-<strong>.age</strong>
+<strong>age</strong>
 </dt>
 <dd>
 <p>
-        The amount of time since the last update of the object.
+        The amount of time since the last update of the object. The type of this
+        field is date-time.
 </p>
 </dd>
 <dt class="hdlist1">
-<strong>.interval</strong>
+<strong>interval</strong>
 </dt>
 <dd>
 <p>
         The interval with which the object gets updated. This value is determined
         automatically based on a moving average determined from the update
         timestamps of an object. It depends on the update timestamps as provided
-        by the backend (if available) and SysDB&#8217;s query interval.
+        by the backend (if available) and SysDB&#8217;s query interval. The type of this
+        field is date-time.
 </p>
 </dd>
 <dt class="hdlist1">
-<strong>.backend</strong>
+<strong>backend</strong>
 </dt>
 <dd>
 <p>
-        The name of the backend (plugin) providing the data.
+        The name of the backend (plugin) providing the data. The type of this
+        field is array of strings.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>attribute[</strong><em>&lt;name&gt;</em><strong>]</strong>
+</dt>
+<dd>
+<p>
+        The value of the object&#8217;s named attribute. If an attribute of the
+        specified name does not exist, each comparison is treated as if the value
+        does not match. See the documentation for the <strong>IS NULL</strong> and <strong>IS NOT NULL</strong>
+        operators for ways to check if an attribute exists. The value of an
+        attribute may be of any of the supported data types. There is no schema
+        specifying each attribute&#8217;s data type which means that the parser cannot
+        do any type checks. Thus, in case the data types mismatch when comparing
+        an attribute value with some other value, the two values will be cast to
+        strings before comparing them.
 </p>
 </dd>
 </dl></div>
-<div class="paragraph"><p>The type of the <strong>last_update</strong>, <strong>age</strong>, and <strong>interval</strong> fields is date-time and
-the type of the <strong>backend</strong> field is string. All conditional operators may be
-used to compare the date-time fields (but not regular expression or <strong>IS NULL</strong>
-operators). The backend field may only be matched by (in)equality. Each object
-may be provided by multiple backends. The filter matches if the specified
-value matches any of them.</p></div>
+<div class="paragraph"><p>The following logical operators are supported by SysDB. Unless otherwise
+noted, the data types of the left hand and right hand side have to match.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>=</strong>
+</dt>
+<dd>
+<p>
+        Checks two values for equality.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>!=</strong>
+</dt>
+<dd>
+<p>
+        Checks two values for inequality.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>=~</strong>
+</dt>
+<dd>
+<p>
+        Checks if a value matches a regular expression. The regex pattern has to
+        be specified as a string but the value may be of any type and will be cast
+        to a string before evaluating the regular expression. SysDB uses POSIX
+        extended regular expressions.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>!~</strong>
+</dt>
+<dd>
+<p>
+        Checks if a value does not match a regular expression. The same rules
+        apply as for the <strong>=~</strong> operator.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>&lt;</strong>, <strong>&lt;=</strong>, <strong>&gt;=</strong>, <strong>&gt;</strong>
+</dt>
+<dd>
+<p>
+        Checks whether a value compares less than, less than or equal to, greater
+        than or equal, or greater than some other value.
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><p>The following arithmetic operators are supported by SysDB. Unless otherwise
+noted, the data types of the left hand and right hand side have to match.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>+</strong>
+</dt>
+<dt class="hdlist1">
+<strong>-</strong>
+</dt>
+<dd>
+<p>
+        Add or subtract two numeric or date-time values.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>*</strong>
+</dt>
+<dt class="hdlist1">
+<strong>/</strong>
+</dt>
+<dd>
+<p>
+        Multiple or divide two numeric or data-time values. A date-time value may
+        be multiplied with a numeric value or divided by a numeric value. The
+        result will then be a date-time value.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>%</strong>
+</dt>
+<dd>
+<p>
+        Modulo operator (remainder of division). Same rules for data types apply
+        as for division.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>||</strong>
+</dt>
+<dd>
+<p>
+        Concatenate string or array values.
+</p>
+</dd>
+</dl></div>
 </div>
 </div>
 </div>
@@ -368,6 +445,17 @@ all types may be used in any place where a value is expected.</p></div>
         <strong>ns</strong> (nanoseconds). Note that years and months are approximations.
 </p>
 </dd>
+<dt class="hdlist1">
+<strong>Array constants</strong>
+</dt>
+<dd>
+<p>
+        An array stores of one or more values of the same type. It may be
+        specified as a comma-separated list of constant values enclosed in square
+        brackets (<em>[&lt;elem1&gt;,&lt;elem2&gt;,&#8230;]</em>). For each value, the same rules apply
+        as for a regular constant value of that type.
+</p>
+</dd>
 </dl></div>
 </div>
 </div>
@@ -389,11 +477,13 @@ replies look like. The replies are pretty-printed to more easily follow them.</p
 [{
     "name": "host1.example.com",
     "last_update": "2001-02-03 04:05:06 +0700",
-    "update_interval": "5m4s"
+    "update_interval": "5m4s",
+    "backend": ['backend::mk-livestatus']
   },{
     "name": "host2.example.com",
     "last_update": "2001-02-03 04:05:06 +0700",
-    "update_interval": "5m4s"
+    "update_interval": "10s",
+    "backend": ['backend::mk-livestatus','backend::collectd::unixsock']
   }]</pre>
 </div></div>
 <div class="literalblock">
@@ -403,41 +493,47 @@ replies look like. The replies are pretty-printed to more easily follow them.</p
     "name": "host1.example.com",
     "last_update": "2001-02-03 04:05:06 +0700",
     "update_interval": "5m4s",
+    "backend": ['backend::mk-livestatus'],
     "attributes": [{
         "name": "architecture",
         "value": "amd64",
         "last_update": "2001-02-03 04:05:06 +0700",
-        "update_interval": "5m4s"
+        "update_interval": "5m4s",
+        "backend": ['backend::mk-livestatus']
       },{
         ...
       }],
     "services": [{
         "name": "some service",
         "last_update": "2001-02-03 04:05:06 +0700",
-        "update_interval": "5m4s"
+        "update_interval": "5m4s",
+        "backend": ['backend::mk-livestatus']
       },{
         ...
       }]}</pre>
 </div></div>
 <div class="literalblock">
 <div class="content monospaced">
-<pre>LOOKUP hosts MATCHING attribute[architecture] = 'amd64';
+<pre>LOOKUP hosts MATCHING attribute['architecture'] = 'amd64';
 [{
     "name": "host1.example.com",
     "last_update": "2001-02-03 04:05:06 +0700",
     "update_interval": "5m4s",
+    "backend": ['backend::mk-livestatus'],
     "attributes": [{
         "name": "architecture",
         "value": "amd64",
         "last_update": "2001-02-03 04:05:06 +0700",
-        "update_interval": "5m4s"
+        "update_interval": "5m4s",
+        "backend": ['backend::mk-livestatus']
       },{
         ...
       }],
     "services": [{
         "name": "some service",
         "last_update": "2001-02-03 04:05:06 +0700",
-        "update_interval": "5m4s"
+        "update_interval": "5m4s",
+        "backend": ['backend::mk-livestatus']
       },{
         ...
   }]},{
@@ -450,6 +546,7 @@ replies look like. The replies are pretty-printed to more easily follow them.</p
 <h2 id="_see_also">SEE ALSO</h2>
 <div class="sectionbody">
 <div class="paragraph"><p><a href="sysdb.1.html">sysdb(1)</a>, <a href="sysdb.7.html">sysdb(7)</a></p></div>
+<div class="paragraph"><p>RFC 4627 (JSON): <a href="http://www.ietf.org/rfc/rfc4627.txt">http://www.ietf.org/rfc/rfc4627.txt</a></p></div>
 <div class="paragraph"><p>The SysDB homepage: <a href="https://sysdb.io/">https://sysdb.io/</a></p></div>
 </div>
 </div>
@@ -471,6 +568,6 @@ FITNESS FOR A PARTICULAR PURPOSE.</p></div>
 <hr />
 <div id="footer">
 <p>
-Last updated 2014-10-06 21:52:54 CEST
+Last updated 2014-11-17 20:34:30 CET
 </p>
 </div>
