@@ -1,0 +1,19 @@
+link:/news/webui.html[2014-12-22: Preview of the web-interface]
+---------------------------------------------------------------
+
+Early in December, a preview of the web-based SysDB user-interface has been
+pushed to link:https://github.com/sysdb/webui[GitHub]. It provides a graphical
+client application for browsing and querying the system database.
+
+* Browse all hosts, services, and metrics and display details about them.
+* Query hosts, services, and metrics using a simple query language:
+** Specify the object-type by name as first word in the query.
+** Query by name simply by specifying an (optionally quoted) string which is
+   treated as a regex.
+** Query by attribute using the <name>:<value> syntax.
+* Display graphs for all metrics supporting it. The time-range is configurable
+  in the user-interface.
+
+image:/images/sysdb_graph.png[]
+image:/images/sysdb_host.png[]
+image:/images/sysdb_metrics.png[]
