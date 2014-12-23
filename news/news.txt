@@ -5,6 +5,10 @@
 <a href="https://sysdb.io/news.atom">Atom</a> feed to receive updates
 automatically.</b>
 </p>
+<p class="feed">
+<b>Also join us on <a href="https://sysdb.io/+">Google+</a> or <a
+href="https://twitter.com/SystemDatabase">Twitter</a> for further updates.</b>
+</p>
 ++++++++++
 
 include::webui.txt[]
