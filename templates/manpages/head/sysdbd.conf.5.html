@@ -158,9 +158,19 @@ with SysDB. See <strong>sysdbd</strong>-<em>&lt;name&gt;</em>(5) manpages for mo
 <p>
 This backend module accesses the system statistics collection daemon
 <strong>collectd</strong> through its UNIX socket interface. It periodically queries all host
-and service information.
+and metric information.
 </p>
 <div class="paragraph"><p>See also: <a href="http://collectd.org">http://collectd.org</a></p></div>
+</dd>
+<dt class="hdlist1">
+<strong>facter</strong>
+</dt>
+<dd>
+<p>
+This backend module retrieves local facter fact values and submits them as
+host attributes.
+</p>
+<div class="paragraph"><p>See also: <a href="https://github.com/puppetlabs/cfacter">https://github.com/puppetlabs/cfacter</a></p></div>
 </dd>
 <dt class="hdlist1">
 <strong>mk-livestatus</strong>
@@ -233,8 +243,8 @@ system&#8217;s syslog service.
 <div class="paragraph"><p>The SysDB homepage: <a href="https://sysdb.io/">https://sysdb.io/</a></p></div>
 <div class="sect2">
 <h3 id="_backend_documentation">Backend documentation:</h3>
-<div class="paragraph"><p><a href="sysdbd-collectd-unixsock.5.html">sysdbd-collectd-unixsock(5)</a>, <a href="sysdbd-mk-livestatus.5.html">sysdbd-mk-livestatus(5)</a>,
-<a href="sysdbd-puppet-store-configs.5.html">sysdbd-puppet-store-configs(5)</a></p></div>
+<div class="paragraph"><p><a href="sysdbd-collectd-unixsock.5.html">sysdbd-collectd-unixsock(5)</a>, <a href="sysdbd-facter.5.html">sysdbd-facter(5)</a>,
+<a href="sysdbd-mk-livestatus.5.html">sysdbd-mk-livestatus(5)</a>, <a href="sysdbd-puppet-store-configs.5.html">sysdbd-puppet-store-configs(5)</a></p></div>
 </div>
 <div class="sect2">
 <h3 id="_time_series_fetcher_documentation">Time-series fetcher documentation:</h3>
@@ -264,6 +274,6 @@ FITNESS FOR A PARTICULAR PURPOSE.</p></div>
 <hr />
 <div id="footer">
 <p>
-Last updated 2014-09-01 20:48:06 CEST
+Last updated 2014-12-23 12:36:28 CET
 </p>
 </div>
