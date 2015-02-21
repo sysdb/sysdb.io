@@ -1,0 +1,158 @@
+<h1 class="manpage">sysdbd-store-network(5) Manual Page</h1>
+<h2>NAME</h2>
+<div class="sectionbody">
+<p>sysdbd-store-network - store::network plugin sending to remote instances</p>
+</div>
+<div class="sect1">
+<h2 id="_synopsis">SYNOPSIS</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content monospaced">
+<pre>LoadPlugin "store::network"</pre>
+</div></div>
+<div class="literalblock">
+<div class="content monospaced">
+<pre>&lt;Plugin "store::network"&gt;
+    &lt;Server "some.host.name:12345"&gt;
+        Username "my.host.name"
+        SSLCertificate "/etc/sysdb/ssl/cert.pem"
+        SSLCertificateKey "/etc/sysdb/ssl/key.pem"
+        SSLCACertificates "/etc/ssl/certs/ca-certificates.crt"
+    &lt;/Server&gt;
+&lt;/Plugin&gt;</pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description">DESCRIPTION</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>store::network</strong> is a plugin which connects to a remote SysDB instance and
+sends all locally collected stored objects to that instance. It uses the
+low-level binary protocol to efficiently transmit the data.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration">CONFIGURATION</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>store::network</strong> accepts the following configuration options:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>Server</strong> <em>&lt;address&gt;</em>
+</dt>
+<dd>
+<p>
+        A server block specifies the connection settings. Multiple servers may be
+        specified to send all data to multiple instances. The specified
+        <em>&lt;address&gt;</em> may be a local path-name of a UNIX domain socket, a hostname,
+        an IPv4 address, or and IPv6 address along with the remote port, separated
+        by a colon (":").
+       <br>
+        All TCP connections are encrypted with SSL/TLS. See the <strong>SSL</strong>
+        configuration options for details about how to configure this.
+       <br>
+        All clients need to authenticate against the remote SysDB instance. See
+        the section <strong>AUTHENTICATION</strong> for details.
+       <br>
+        A server block accepts the following configuration options:
+</p>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>Username</strong> <em>&lt;name&gt;</em>
+</dt>
+<dd>
+<p>
+                The username used for authentication against the remote instance.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>SSLCertificate</strong> <em>&lt;filename&gt;</em>
+</dt>
+<dd>
+<p>
+                The SSL certificate file to use for SSL connections and
+                authentication.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>SSLCertificateKey</strong> <em>&lt;filename&gt;</em>
+</dt>
+<dd>
+<p>
+                The SSL private key file to use for SSL connections and
+                authentication.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>SSLCACertificates</strong> <em>&lt;filename&gt;</em>
+</dt>
+<dd>
+<p>
+                The certificate authority (CA) certificates file for server
+                certificate verification to use for SSL connection.
+</p>
+</dd>
+</dl></div>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_authentication">AUTHENTICATION</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>SysDB requires all client connections to a database server to be
+authenticated. The following authentication mechanism are supported at this
+time:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>Peer authentication for UNIX domain socket connections</strong>
+</dt>
+<dd>
+<p>
+        Connections via UNIX domain sockets are authenticated by obtaining the
+        client&#8217;s operating system user name from the kernel. The name has to match
+        the username used to connect to the server.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>SSL certificate authentication for TCP connection</strong>
+</dt>
+<dd>
+<p>
+        SSL client certificates will be used to authenticate TCP connections. The
+        <em>cn</em> (common name) attribute of the certificate has to match the username
+        used to connect to the server.
+        Note that full client and server verification is currently enforced on all
+        TCP connections.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">SEE ALSO</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><a href="sysdbd.1.html">sysdbd(1)</a>, <a href="sysdbd.conf.5.html">sysdbd.conf(5)</a></p></div>
+<div class="paragraph"><p>The SysDB homepage: <a href="https://sysdb.io/">https://sysdb.io/</a></p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_author">AUTHOR</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>SysDB was written by Sebastian "tokkee" Harl &lt;<a href="mailto:sh@tokkee.org">sh@tokkee.org</a>&gt;.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_copyright">COPYRIGHT</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Copyright &#169; 2012-2015 Sebastian "tokkee" Harl &lt;<a href="mailto:sh@tokkee.org">sh@tokkee.org</a>&gt;</p></div>
+<div class="paragraph"><p>This is free software under the terms of the BSD license, see the source for
+copying conditions. There is NO WARRANTY; not even for MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.</p></div>
+</div>
+</div>
+<hr />
+<div id="footer">
+<p>
+Last updated 2015-02-21 17:09:00 CET
+</p>
+</div>
