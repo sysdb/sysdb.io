@@ -8,6 +8,7 @@ NEWS = \
 		news/release-0.4.0.html \
 		news/release-0.5.0.html \
 		news/release-0.6.0.html \
+		news/release-0.7.0.html \
 		news/sysdb.go.html \
 		news/webui.html
 
@@ -28,6 +29,7 @@ news/release-0.3.0.html: news/release-0.3.0.txt
 news/release-0.4.0.html: news/release-0.4.0.txt
 news/release-0.5.0.html: news/release-0.5.0.txt
 news/release-0.6.0.html: news/release-0.6.0.txt
+news/release-0.7.0.html: news/release-0.7.0.txt
 news/sysdb.go.html: news/sysdb.go.txt
 news/webui.html: news/webui.txt
 

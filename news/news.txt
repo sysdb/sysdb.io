@@ -11,6 +11,8 @@ href="https://twitter.com/SystemDatabase">Twitter</a> for further updates.</b>
 </p>
 ++++++++++
 
+include::release-0.7.0.txt[]
+
 include::webui.txt[]
 
 include::release-0.6.0.txt[]
