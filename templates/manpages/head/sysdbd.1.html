@@ -66,6 +66,65 @@ further processing, storing and exporting of data is done by plugins.</p></div>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_client_authentication">CLIENT AUTHENTICATION</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>SysDB requires all client connections to a database server to be
+authenticated. The following authentication mechanism are supported at this
+time:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>Peer authentication for UNIX domain socket connections</strong>
+</dt>
+<dd>
+<p>
+        Connections via UNIX domain sockets are authenticated by obtaining the
+        client&#8217;s operating system user name from the kernel. The name has to match
+        the username used to connect to the server.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>SSL certificate authentication for TCP connection</strong>
+</dt>
+<dd>
+<p>
+        SSL client certificates will be used to authenticate TCP connections. The
+        <em>cn</em> (common name) attribute of the certificate has to match the username
+        used to connect to the server.
+        Note that full client and server verification is currently enforced on all
+        TCP connections.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_files">FILES</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>/etc/sysdb/sysdbd.conf</strong>
+</dt>
+<dd>
+<p>
+        The default main configuration file for the SysDB daemon.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>/etc/sysdb/ssl/key.pem</strong>
+</dt>
+<dt class="hdlist1">
+<strong>/etc/sysdb/ssl/cert.pem</strong>
+</dt>
+<dd>
+<p>
+        The default SSL private key and certificate files to use for SSL
+        connections.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_signals">SIGNALS</h2>
 <div class="sectionbody">
 <div class="paragraph"><p><strong>sysdbd</strong> accepts and handles the following signals:</p></div>
@@ -145,6 +204,6 @@ FITNESS FOR A PARTICULAR PURPOSE.</p></div>
 <hr />
 <div id="footer">
 <p>
-Last updated 2014-09-01 20:48:06 CEST
+Last updated 2015-02-21 15:39:36 CET
 </p>
 </div>

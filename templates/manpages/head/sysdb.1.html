@@ -22,6 +22,8 @@ server, and display the result.</p></div>
 <h2 id="_options">OPTIONS</h2>
 <div class="sectionbody">
 <div class="paragraph"><p><strong>sysdb</strong> accepts the following command-line options.</p></div>
+<div class="sect2">
+<h3 id="_connection_options">Connection options:</h3>
 <div class="dlist"><dl>
 <dt class="hdlist1">
 <strong>-H</strong> <em>&lt;host&gt;</em>
@@ -52,6 +54,41 @@ server, and display the result.</p></div>
         command.
 </p>
 </dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="_ssl_options">SSL options:</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>-K</strong> <em>&lt;keyfile&gt;</em>
+</dt>
+<dd>
+<p>
+        The SSL private key file to use for SSL connections.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>-C</strong> <em>&lt;certfile&gt;</em>
+</dt>
+<dd>
+<p>
+        The SSL certificate file to use for SSL connections.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>-A</strong> <em>&lt;cafile&gt;</em>
+</dt>
+<dd>
+<p>
+        The certificate authority (CA) certificates file for server certificate
+        verification to use for SSL connection.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="_general_options">General options:</h3>
+<div class="dlist"><dl>
 <dt class="hdlist1">
 <strong>-h</strong>
 </dt>
@@ -66,6 +103,39 @@ server, and display the result.</p></div>
 <dd>
 <p>
         Display the version number and copyright information.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_authentication">AUTHENTICATION</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>SysDB requires all client connections to a database server to be
+authenticated. The following authentication mechanism are supported at this
+time:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>Peer authentication for UNIX domain socket connections</strong>
+</dt>
+<dd>
+<p>
+        Connections via UNIX domain sockets are authenticated by obtaining the
+        client&#8217;s operating system user name from the kernel. The name has to match
+        the username used to connect to the server.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>SSL certificate authentication for TCP connection</strong>
+</dt>
+<dd>
+<p>
+        SSL client certificates will be used to authenticate TCP connections. The
+        <em>cn</em> (common name) attribute of the certificate has to match the username
+        used to connect to the server.
+        Note that full client and server verification is currently enforced on all
+        TCP connections.
 </p>
 </dd>
 </dl></div>
@@ -90,6 +160,33 @@ server, and display the result.</p></div>
 <p>
         Failure (syntax or usage error). When using the <strong>-c</strong> option, sysdb exits
         with status 1 if the specified command failed.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_files">FILES</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>~/.config/sysdb/ssl/key.pem</strong>
+</dt>
+<dt class="hdlist1">
+<strong>~/.config/sysdb/ssl/cert.pem</strong>
+</dt>
+<dd>
+<p>
+        The default SSL private key and certificate files to use for SSL
+        connections.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>~/.sysdb_history</strong>
+</dt>
+<dd>
+<p>
+        The command-line history is stored in this file.
 </p>
 </dd>
 </dl></div>
@@ -126,6 +223,6 @@ FITNESS FOR A PARTICULAR PURPOSE.</p></div>
 <hr />
 <div id="footer">
 <p>
-Last updated 2014-09-01 20:48:06 CEST
+Last updated 2015-02-21 15:39:36 CET
 </p>
 </div>

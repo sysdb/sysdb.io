@@ -21,6 +21,11 @@ LIST services;</pre>
                  AND 'backend::collectd::unixsock' in backend
              FILTER age &lt; 5 * interval;</pre>
 </div></div>
+<div class="literalblock">
+<div class="content monospaced">
+<pre>STORE host attribute 'some.host.name'.'key' 123.45
+                     LAST UPDATE 2001-02-03 04:05:06;</pre>
+</div></div>
 </div>
 </div>
 <div class="sect1">
@@ -48,6 +53,8 @@ store.</p></div>
 request to retrieve data from a SysDB daemon. It is very remotely similar to
 the Standard Query Language (SQL) supported by relational database management
 systems (RDBMS) but specialized for SysDB&#8217;s use-case.</p></div>
+<div class="paragraph"><p>Besides querying data, SysQL may also be used to store or update objects in
+SysDB.</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -385,6 +392,53 @@ noted, the data types of the left hand and right hand side have to match.</p></d
 </div>
 </div>
 <div class="sect1">
+<h2 id="_storing_data">STORING DATA</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The <strong>STORE</strong> command may be used to store or update an object in SysDB. Each
+command is terminated by a semicolon. The following variants are available for
+storing the different data types:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>STORE</strong> host <em>&lt;name&gt;</em> [<strong>LAST UPDATE</strong> <em>&lt;datetime&gt;</em>]
+</dt>
+<dt class="hdlist1">
+<strong>STORE</strong> service|metric <em>&lt;hostname&gt;</em>.<em>&lt;name&gt;</em> [<strong>LAST UPDATE</strong> <em>&lt;datetime&gt;</em>]
+</dt>
+<dt class="hdlist1">
+<strong>STORE</strong> host attribute <em>&lt;hostname&gt;</em>.<em>&lt;key&gt;</em> <em>&lt;value&gt;</em> [<strong>LAST UPDATE</strong> <em>&lt;datetime&gt;</em>]
+</dt>
+<dt class="hdlist1">
+<strong>STORE</strong> service|metric attribute <em>&lt;hostname&gt;</em>.<em>&lt;name&gt;</em>.<em>&lt;key&gt;</em> <em>&lt;value&gt;</em> [<strong>LAST UPDATE</strong> <em>&lt;datetime&gt;</em>]
+</dt>
+<dd>
+<p>
+        Store an object of the specified type and name. For services, metrics, and
+        attributes, the name is prepended with the parent object name separated by
+        a dot (<em>.</em>). Optionally, the time-stamp of the object&#8217;s last update may be
+        provided as well. If omitted, the current time on the server will be used
+        instead.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>STORE</strong> metric <em>&lt;hostname&gt;</em>.<em>&lt;name&gt;</em> STORE <em>&lt;type&gt;</em> <em>&lt;id&gt;</em> [<strong>LAST UPDATE</strong> <em>&lt;datetime&gt;</em>]
+</dt>
+<dd>
+<p>
+        Store a metric and provide information about the metric store associated
+        with it. A metric store describes how to access a metric&#8217;s data and can be
+        used to retrieve time-series information associated with the metric. See
+        the <a href="sysdb.7.html">sysdb(7)</a> manpage for details.
+.
+        Note that the metric store information will be forwarded to the server
+        unmodified. That is, they need to be specified in a way such that the
+        server can make sense out of them. Else, retrieval of time-series data
+        will fail.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_data_types">DATA TYPES</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>The SysDB query language natively supports various data-types. Constants of
@@ -463,7 +517,8 @@ all types may be used in any place where a value is expected.</p></div>
 <h2 id="_response_format">RESPONSE FORMAT</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>The JavaScript Object Notation (JSON) format, as specified in RFC 4627, is
-used in all replies from the server. <a href="http://www.ietf.org/rfc/rfc4627.txt">http://www.ietf.org/rfc/rfc4627.txt</a></p></div>
+used in all query replies from the server. <a href="http://www.ietf.org/rfc/rfc4627.txt">http://www.ietf.org/rfc/rfc4627.txt</a></p></div>
+<div class="paragraph"><p>For all other commands, the reply will be a message string.</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -568,6 +623,6 @@ FITNESS FOR A PARTICULAR PURPOSE.</p></div>
 <hr />
 <div id="footer">
 <p>
-Last updated 2014-11-17 20:34:30 CET
+Last updated 2015-02-21 15:39:36 CET
 </p>
 </div>

@@ -22,7 +22,20 @@ all log messages to it.</p></div>
 <div class="sect1">
 <h2 id="_configuration">CONFIGURATION</h2>
 <div class="sectionbody">
-<div class="paragraph"><p><strong>syslog</strong> does not currently accept any configuration options.</p></div>
+<div class="paragraph"><p><strong>syslog</strong> accepts the following configuration options:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LogLevel</strong> <strong>DEBUG</strong>|<strong>INFO</strong>|<strong>NOTICE</strong>|<strong>WARNING</strong>|<strong>ERROR</strong>|<strong>EMERG</strong>
+</dt>
+<dd>
+<p>
+        Set the minimum log level. Only messages logged at the specified level and
+        above will actually be logged. Note that this only affects how SysDB
+        behaves. Whether or where the log message shows up also depends on your
+        syslog daemon configuration. Defaults to <strong>INFO</strong>.
+</p>
+</dd>
+</dl></div>
 </div>
 </div>
 <div class="sect1">
@@ -50,6 +63,6 @@ FITNESS FOR A PARTICULAR PURPOSE.</p></div>
 <hr />
 <div id="footer">
 <p>
-Last updated 2014-09-01 20:48:06 CEST
+Last updated 2015-02-21 15:39:36 CET
 </p>
 </div>

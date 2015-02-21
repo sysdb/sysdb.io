@@ -12,7 +12,11 @@
 </div></div>
 <div class="literalblock">
 <div class="content monospaced">
-<pre>Listen "unix:/var/run/sysdbd.sock"</pre>
+<pre>Listen "unix:/var/run/sysdbd.sock"
+&lt;Listen "tcp:some.host.name:12345"&gt;
+    SSLCertificate "/etc/sysdb/ssl/cert.pem"
+    SSLCertificateKey "/etc/sysdb/ssl/key.pem"
+&lt;/Listen&gt;</pre>
 </div></div>
 <div class="literalblock">
 <div class="content monospaced">
@@ -51,12 +55,12 @@ inventory collection daemon (<strong>sysdbd</strong>). As the daemon itself does
 any real (user-facing) functionality, the most important part of the
 configuration is loading and configuring plugins.</p></div>
 <div class="paragraph"><p>The syntax of this configuration file is similar to that of the Apache
-webserver. It is made up of <em>options</em> and <em>sections</em>. Each option contains a
+webserver. It is made up of <em>options</em> and <em>blocks</em>. Each option contains a
 <em>key</em> and one or more <em>values</em> separated by spaces and terminated by a newline
-character. Sections are enclosed in a start- and end-tag, each on a line of
+character. Blocks are enclosed in a start- and end-tag, each on a line of
 their own. These tags are enclosed in angle brackets and also contain a key
-and value. Section end-tags only contain the key of the start-tag prepended by
-a forward-slash ("/"). Empty lines are ignored as well as any unquoted hash
+and value. A block&#8217;s end-tag only contain the key of the start-tag prepended
+by a forward-slash ("/"). Empty lines are ignored as well as any unquoted hash
 symbol ("#") including anything following up to the following newline. Keys
 are unquoted strings consisting only of alphanumeric characters and the
 underscore character ("_"). Values may either be unquoted strings, quoted
@@ -93,9 +97,41 @@ ignored, which allows for nicely indenting the wrapped lines.</p></div>
 <dd>
 <p>
         Sets the address on which sysdbd is to listen for client connections. It
-        supports UNIX domain sockets. The path name needs to be prefixed by
-        <em>unix:</em>.
+        supports UNIX domain sockets and TCP sockets using TLS encryption. UNIX
+        socket addresses are specified by the path name of the socket, optionally
+        prefixed with <em>unix:</em>. TCP listen addresses may be specified as
+        <em>&lt;host&gt;:&lt;port&gt;</em>, optionally prefixed with <em>tcp:</em>. The host may be a
+        hostname, an IPv4 address or and IPv6 address. It may be empty or
+        <em>0.0.0.0</em> / <em>::</em> to listen on all local addresses. <strong>Listen</strong> may optionally
+        be a block containing any of the following options:
 </p>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>SSLCertificate</strong> <em>&lt;filename&gt;</em>
+</dt>
+<dd>
+<p>
+                Specify the SSL server certificate file to use for SSL connections.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>SSLCertificateKey</strong> <em>&lt;filename&gt;</em>
+</dt>
+<dd>
+<p>
+                Specify the SSL server private key file to use for SSL connections.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>SSLCACertificates</strong> <em>&lt;filename&gt;</em>
+</dt>
+<dd>
+<p>
+                Specify the file containing certificate authority (CA) certificates
+                for client verification purposes to use for SSL connnections.
+</p>
+</dd>
+</dl></div>
 </dd>
 <dt class="hdlist1">
 <strong>LoadBackend</strong> <em>&lt;name&gt;</em>
@@ -103,8 +139,8 @@ ignored, which allows for nicely indenting the wrapped lines.</p></div>
 <dd>
 <p>
         Loads the backend named <em>&lt;name&gt;</em>. Backends are special plugins taking care
-        of collecting values from external systems. This may optionally be a
-        section containing any of the following options:
+        of collecting values from external systems. This may optionally be a block
+        containing any of the following options:
 </p>
 <div class="dlist"><dl>
 <dt class="hdlist1">
@@ -274,6 +310,6 @@ FITNESS FOR A PARTICULAR PURPOSE.</p></div>
 <hr />
 <div id="footer">
 <p>
-Last updated 2014-12-23 12:36:28 CET
+Last updated 2015-02-21 15:39:36 CET
 </p>
 </div>
