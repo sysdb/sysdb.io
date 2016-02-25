@@ -72,6 +72,9 @@ Backends:
 ~~~~~~~~~
 * *facter*: Added a plugin collecting local facter fact values using
   libcfacter (C++).
+
+Stores:
+~~~~~~~
 * *store::network*: Added a store-writer plugin sending all data to another
   SysDB instance using the client library and low-level STORE commands.
 

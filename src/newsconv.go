@@ -62,7 +62,7 @@ func main() {
 		Description: "The system management and inventory collection service",
 		Author:      &feeds.Author{"Sebastian 'tokkee' Harl", "tokkee@sysdb.io"},
 		Created:     time.Date(2014, time.June, 1, 17, 56, 19, 0, time.FixedZone("Europe/Berlin", 7200)),
-		Copyright:   "Copyright © 2014 SysDB Project",
+		Copyright:   "Copyright © 2014-2016 SysDB Project",
 	}
 	releases := &feeds.Feed{
 		Title:       "SysDB Releases",
@@ -70,7 +70,7 @@ func main() {
 		Description: "Releases of the system management and inventory collection service",
 		Author:      &feeds.Author{"Sebastian 'tokkee' Harl", "tokkee@sysdb.io"},
 		Created:     time.Date(2014, time.June, 1, 17, 56, 19, 0, time.FixedZone("Europe/Berlin", 7200)),
-		Copyright:   "Copyright © 2014 SysDB Project",
+		Copyright:   "Copyright © 2014-2016 SysDB Project",
 	}
 
 	dec := json.NewDecoder(f)
