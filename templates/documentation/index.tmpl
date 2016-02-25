@@ -53,6 +53,20 @@ store. Plugins may be loaded dynamically into the SysDB daemon.
 <li><a href="/manpages/head/sysdbd-store-network.5.html">store::network(5)</a></li>
 </ul>
 
+<h2>Store Manpages</h2>
+
+<p>
+The central part of SysDB's database is the object store which stores all
+objects (hosts, services) known to SysDB. The implementation is provided by a
+"store" plugin and may be backed by arbitrary data-stores. At least one store
+plugin has to be loaded to let the daemon do its work.
+</p>
+
+<ul>
+<li><a href="/manpages/head/sysdbd-store-memory.5.html">store::memory(5)</a></li>
+<li><a href="/manpages/head/sysdbd-store-network.5.html">store::network(5)</a></li>
+</ul>
+
 <h2>Time-series Fetcher Manpages</h2>
 
 <p>
